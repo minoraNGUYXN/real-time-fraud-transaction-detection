@@ -1,0 +1,3272 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<PMML xmlns="http://www.dmg.org/PMML-4_4" xmlns:data="http://jpmml.org/jpmml-model/InlineTable" version="4.4">
+	<Header>
+		<Application name="SkLearn2PMML package" version="0.121.1"/>
+		<Timestamp>2025-08-08T06:49:25Z</Timestamp>
+	</Header>
+	<MiningBuildTask>
+		<Extension name="repr">PMMLPipeline(steps=[('estimator', RandomForestClassifier(max_depth=5, n_estimators=50, random_state=42))])</Extension>
+	</MiningBuildTask>
+	<DataDictionary>
+		<DataField name="is_fraud" optype="categorical" dataType="integer">
+			<Value value="0"/>
+			<Value value="1"/>
+		</DataField>
+		<DataField name="amt" optype="continuous" dataType="float"/>
+		<DataField name="age" optype="continuous" dataType="float"/>
+		<DataField name="distance" optype="continuous" dataType="float"/>
+	</DataDictionary>
+	<MiningModel functionName="classification" algorithmName="sklearn.ensemble._forest.RandomForestClassifier">
+		<MiningSchema>
+			<MiningField name="is_fraud" usageType="target"/>
+			<MiningField name="amt"/>
+			<MiningField name="age"/>
+			<MiningField name="distance"/>
+		</MiningSchema>
+		<Output>
+			<OutputField name="probability(0)" optype="continuous" dataType="double" feature="probability" value="0"/>
+			<OutputField name="probability(1)" optype="continuous" dataType="double" feature="probability" value="1"/>
+		</Output>
+		<LocalTransformations>
+			<DerivedField name="double(amt)" optype="continuous" dataType="double">
+				<FieldRef field="amt"/>
+			</DerivedField>
+			<DerivedField name="double(age)" optype="continuous" dataType="double">
+				<FieldRef field="age"/>
+			</DerivedField>
+			<DerivedField name="double(distance)" optype="continuous" dataType="double">
+				<FieldRef field="distance"/>
+			</DerivedField>
+		</LocalTransformations>
+		<Segmentation multipleModelMethod="average" missingPredictionTreatment="returnMissing">
+			<Segment id="1">
+				<True/>
+				<TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+					<MiningSchema>
+						<MiningField name="double(amt)"/>
+						<MiningField name="double(age)"/>
+						<MiningField name="double(distance)"/>
+					</MiningSchema>
+					<Node>
+						<True/>
+						<Node>
+							<SimplePredicate field="double(amt)" operator="lessOrEqual" value="207.5"/>
+							<Node>
+								<SimplePredicate field="double(age)" operator="lessOrEqual" value="32.0"/>
+								<Node score="0" recordCount="1">
+									<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.10000000335276127"/>
+									<ScoreDistribution value="0" recordCount="1"/>
+									<ScoreDistribution value="1" recordCount="0"/>
+								</Node>
+								<Node score="1" recordCount="1">
+									<True/>
+									<ScoreDistribution value="0" recordCount="0"/>
+									<ScoreDistribution value="1" recordCount="1"/>
+								</Node>
+							</Node>
+							<Node score="0" recordCount="1">
+								<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.3449999876320362"/>
+								<ScoreDistribution value="0" recordCount="1"/>
+								<ScoreDistribution value="1" recordCount="0"/>
+							</Node>
+							<Node score="1" recordCount="1">
+								<True/>
+								<ScoreDistribution value="0" recordCount="0"/>
+								<ScoreDistribution value="1" recordCount="1"/>
+							</Node>
+						</Node>
+						<Node score="0" recordCount="1">
+							<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.07499999925494194"/>
+							<ScoreDistribution value="0" recordCount="1"/>
+							<ScoreDistribution value="1" recordCount="0"/>
+						</Node>
+						<Node score="1" recordCount="1">
+							<True/>
+							<ScoreDistribution value="0" recordCount="0"/>
+							<ScoreDistribution value="1" recordCount="1"/>
+						</Node>
+					</Node>
+				</TreeModel>
+			</Segment>
+			<Segment id="2">
+				<True/>
+				<TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+					<MiningSchema>
+						<MiningField name="double(distance)"/>
+					</MiningSchema>
+					<Node>
+						<True/>
+						<Node score="0" recordCount="1">
+							<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.08999999985098839"/>
+							<ScoreDistribution value="0" recordCount="1"/>
+							<ScoreDistribution value="1" recordCount="0"/>
+						</Node>
+						<Node score="1" recordCount="1">
+							<True/>
+							<ScoreDistribution value="0" recordCount="0"/>
+							<ScoreDistribution value="1" recordCount="1"/>
+						</Node>
+					</Node>
+				</TreeModel>
+			</Segment>
+			<Segment id="3">
+				<True/>
+				<TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+					<MiningSchema>
+						<MiningField name="double(amt)"/>
+						<MiningField name="double(age)"/>
+						<MiningField name="double(distance)"/>
+					</MiningSchema>
+					<Node>
+						<True/>
+						<Node>
+							<SimplePredicate field="double(age)" operator="lessOrEqual" value="52.5"/>
+							<Node>
+								<SimplePredicate field="double(age)" operator="lessOrEqual" value="32.0"/>
+								<Node>
+									<SimplePredicate field="double(age)" operator="lessOrEqual" value="28.0"/>
+									<Node score="0" recordCount="1">
+										<SimplePredicate field="double(amt)" operator="lessOrEqual" value="58.0"/>
+										<ScoreDistribution value="0" recordCount="1"/>
+										<ScoreDistribution value="1" recordCount="0"/>
+									</Node>
+									<Node score="1" recordCount="1">
+										<True/>
+										<ScoreDistribution value="0" recordCount="0"/>
+										<ScoreDistribution value="1" recordCount="1"/>
+									</Node>
+								</Node>
+								<Node score="0" recordCount="1">
+									<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.19000000692903996"/>
+									<ScoreDistribution value="0" recordCount="1"/>
+									<ScoreDistribution value="1" recordCount="0"/>
+								</Node>
+								<Node score="1" recordCount="1">
+									<True/>
+									<ScoreDistribution value="0" recordCount="0"/>
+									<ScoreDistribution value="1" recordCount="1"/>
+								</Node>
+							</Node>
+							<Node score="0" recordCount="1">
+								<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.060000001452863216"/>
+								<ScoreDistribution value="0" recordCount="1"/>
+								<ScoreDistribution value="1" recordCount="0"/>
+							</Node>
+							<Node score="1" recordCount="1">
+								<True/>
+								<ScoreDistribution value="0" recordCount="0"/>
+								<ScoreDistribution value="1" recordCount="1"/>
+							</Node>
+						</Node>
+						<Node score="0" recordCount="1">
+							<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.14999999478459358"/>
+							<ScoreDistribution value="0" recordCount="1"/>
+							<ScoreDistribution value="1" recordCount="0"/>
+						</Node>
+						<Node score="1" recordCount="1">
+							<True/>
+							<ScoreDistribution value="0" recordCount="0"/>
+							<ScoreDistribution value="1" recordCount="1"/>
+						</Node>
+					</Node>
+				</TreeModel>
+			</Segment>
+			<Segment id="4">
+				<True/>
+				<TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+					<MiningSchema>
+						<MiningField name="double(distance)"/>
+					</MiningSchema>
+					<Node>
+						<True/>
+						<Node score="0" recordCount="1">
+							<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.07499999925494194"/>
+							<ScoreDistribution value="0" recordCount="1"/>
+							<ScoreDistribution value="1" recordCount="0"/>
+						</Node>
+						<Node score="1" recordCount="1">
+							<True/>
+							<ScoreDistribution value="0" recordCount="0"/>
+							<ScoreDistribution value="1" recordCount="1"/>
+						</Node>
+					</Node>
+				</TreeModel>
+			</Segment>
+			<Segment id="5">
+				<True/>
+				<TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+					<MiningSchema>
+						<MiningField name="double(distance)"/>
+					</MiningSchema>
+					<Node>
+						<True/>
+						<Node score="0" recordCount="1">
+							<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.06500000134110451"/>
+							<ScoreDistribution value="0" recordCount="1"/>
+							<ScoreDistribution value="1" recordCount="0"/>
+						</Node>
+						<Node score="1" recordCount="1">
+							<True/>
+							<ScoreDistribution value="0" recordCount="0"/>
+							<ScoreDistribution value="1" recordCount="1"/>
+						</Node>
+					</Node>
+				</TreeModel>
+			</Segment>
+			<Segment id="6">
+				<True/>
+				<TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+					<MiningSchema>
+						<MiningField name="double(amt)"/>
+						<MiningField name="double(age)"/>
+						<MiningField name="double(distance)"/>
+					</MiningSchema>
+					<Node>
+						<True/>
+						<Node>
+							<SimplePredicate field="double(age)" operator="lessOrEqual" value="52.5"/>
+							<Node>
+								<SimplePredicate field="double(age)" operator="lessOrEqual" value="34.5"/>
+								<Node>
+									<SimplePredicate field="double(age)" operator="lessOrEqual" value="28.0"/>
+									<Node score="0" recordCount="1">
+										<SimplePredicate field="double(amt)" operator="lessOrEqual" value="64.5"/>
+										<ScoreDistribution value="0" recordCount="1"/>
+										<ScoreDistribution value="1" recordCount="0"/>
+									</Node>
+									<Node score="1" recordCount="1">
+										<True/>
+										<ScoreDistribution value="0" recordCount="0"/>
+										<ScoreDistribution value="1" recordCount="1"/>
+									</Node>
+								</Node>
+								<Node score="0" recordCount="1">
+									<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.19500000681728125"/>
+									<ScoreDistribution value="0" recordCount="1"/>
+									<ScoreDistribution value="1" recordCount="0"/>
+								</Node>
+								<Node score="1" recordCount="1">
+									<True/>
+									<ScoreDistribution value="0" recordCount="0"/>
+									<ScoreDistribution value="1" recordCount="1"/>
+								</Node>
+							</Node>
+							<Node>
+								<SimplePredicate field="double(amt)" operator="lessOrEqual" value="299.0"/>
+								<Node>
+									<SimplePredicate field="double(age)" operator="lessOrEqual" value="49.5"/>
+									<Node score="0" recordCount="1">
+										<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.36000000312924385"/>
+										<ScoreDistribution value="0" recordCount="1"/>
+										<ScoreDistribution value="1" recordCount="0"/>
+									</Node>
+									<Node score="1" recordCount="1">
+										<True/>
+										<ScoreDistribution value="0" recordCount="0"/>
+										<ScoreDistribution value="1" recordCount="1"/>
+									</Node>
+								</Node>
+								<Node score="0" recordCount="1">
+									<SimplePredicate field="double(amt)" operator="lessOrEqual" value="189.0"/>
+									<ScoreDistribution value="0" recordCount="1"/>
+									<ScoreDistribution value="1" recordCount="0"/>
+								</Node>
+								<Node score="1" recordCount="1">
+									<True/>
+									<ScoreDistribution value="0" recordCount="0.47368421052631576"/>
+									<ScoreDistribution value="1" recordCount="0.5263157894736842"/>
+								</Node>
+							</Node>
+							<Node>
+								<SimplePredicate field="double(age)" operator="lessOrEqual" value="42.0"/>
+								<Node score="1" recordCount="1">
+									<SimplePredicate field="double(age)" operator="lessOrEqual" value="39.5"/>
+									<ScoreDistribution value="0" recordCount="0"/>
+									<ScoreDistribution value="1" recordCount="1"/>
+								</Node>
+								<Node score="0" recordCount="1">
+									<True/>
+									<ScoreDistribution value="0" recordCount="0.5581395348837209"/>
+									<ScoreDistribution value="1" recordCount="0.4418604651162791"/>
+								</Node>
+							</Node>
+							<Node score="1" recordCount="1">
+								<SimplePredicate field="double(age)" operator="lessOrEqual" value="43.5"/>
+								<ScoreDistribution value="0" recordCount="0.25"/>
+								<ScoreDistribution value="1" recordCount="0.75"/>
+							</Node>
+							<Node score="1" recordCount="1">
+								<True/>
+								<ScoreDistribution value="0" recordCount="0.07017543859649122"/>
+								<ScoreDistribution value="1" recordCount="0.9298245614035088"/>
+							</Node>
+						</Node>
+						<Node>
+							<SimplePredicate field="double(age)" operator="lessOrEqual" value="75.5"/>
+							<Node>
+								<SimplePredicate field="double(amt)" operator="lessOrEqual" value="682.0"/>
+								<Node score="0" recordCount="1">
+									<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.14999999478459358"/>
+									<ScoreDistribution value="0" recordCount="1"/>
+									<ScoreDistribution value="1" recordCount="0"/>
+								</Node>
+								<Node score="1" recordCount="1">
+									<True/>
+									<ScoreDistribution value="0" recordCount="0"/>
+									<ScoreDistribution value="1" recordCount="1"/>
+								</Node>
+							</Node>
+							<Node>
+								<SimplePredicate field="double(age)" operator="lessOrEqual" value="69.5"/>
+								<Node score="0" recordCount="1">
+									<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.1449999948963523"/>
+									<ScoreDistribution value="0" recordCount="1"/>
+									<ScoreDistribution value="1" recordCount="0"/>
+								</Node>
+								<Node score="1" recordCount="1">
+									<True/>
+									<ScoreDistribution value="0" recordCount="0"/>
+									<ScoreDistribution value="1" recordCount="1"/>
+								</Node>
+							</Node>
+							<Node score="1" recordCount="1">
+								<True/>
+								<ScoreDistribution value="0" recordCount="0"/>
+								<ScoreDistribution value="1" recordCount="1"/>
+							</Node>
+						</Node>
+						<Node score="0" recordCount="1">
+							<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.18999999668449163"/>
+							<ScoreDistribution value="0" recordCount="1"/>
+							<ScoreDistribution value="1" recordCount="0"/>
+						</Node>
+						<Node score="1" recordCount="1">
+							<True/>
+							<ScoreDistribution value="0" recordCount="0"/>
+							<ScoreDistribution value="1" recordCount="1"/>
+						</Node>
+					</Node>
+				</TreeModel>
+			</Segment>
+			<Segment id="7">
+				<True/>
+				<TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+					<MiningSchema>
+						<MiningField name="double(age)"/>
+						<MiningField name="double(distance)"/>
+					</MiningSchema>
+					<Node>
+						<True/>
+						<Node>
+							<SimplePredicate field="double(age)" operator="lessOrEqual" value="52.5"/>
+							<Node score="0" recordCount="1">
+								<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.11499999836087227"/>
+								<ScoreDistribution value="0" recordCount="1"/>
+								<ScoreDistribution value="1" recordCount="0"/>
+							</Node>
+							<Node score="1" recordCount="1">
+								<True/>
+								<ScoreDistribution value="0" recordCount="0"/>
+								<ScoreDistribution value="1" recordCount="1"/>
+							</Node>
+						</Node>
+						<Node score="0" recordCount="1">
+							<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.08999999985098839"/>
+							<ScoreDistribution value="0" recordCount="1"/>
+							<ScoreDistribution value="1" recordCount="0"/>
+						</Node>
+						<Node score="1" recordCount="1">
+							<True/>
+							<ScoreDistribution value="0" recordCount="0"/>
+							<ScoreDistribution value="1" recordCount="1"/>
+						</Node>
+					</Node>
+				</TreeModel>
+			</Segment>
+			<Segment id="8">
+				<True/>
+				<TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+					<MiningSchema>
+						<MiningField name="double(amt)"/>
+						<MiningField name="double(age)"/>
+						<MiningField name="double(distance)"/>
+					</MiningSchema>
+					<Node>
+						<True/>
+						<Node>
+							<SimplePredicate field="double(amt)" operator="lessOrEqual" value="292.0"/>
+							<Node>
+								<SimplePredicate field="double(age)" operator="lessOrEqual" value="32.0"/>
+								<Node score="0" recordCount="1">
+									<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.10000000335276127"/>
+									<ScoreDistribution value="0" recordCount="1"/>
+									<ScoreDistribution value="1" recordCount="0"/>
+								</Node>
+								<Node score="1" recordCount="1">
+									<True/>
+									<ScoreDistribution value="0" recordCount="0"/>
+									<ScoreDistribution value="1" recordCount="1"/>
+								</Node>
+							</Node>
+							<Node>
+								<SimplePredicate field="double(age)" operator="lessOrEqual" value="54.0"/>
+								<Node>
+									<SimplePredicate field="double(amt)" operator="lessOrEqual" value="173.5"/>
+									<Node score="0" recordCount="1">
+										<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.5100000044330955"/>
+										<ScoreDistribution value="0" recordCount="1"/>
+										<ScoreDistribution value="1" recordCount="0"/>
+									</Node>
+									<Node score="1" recordCount="1">
+										<True/>
+										<ScoreDistribution value="0" recordCount="0"/>
+										<ScoreDistribution value="1" recordCount="1"/>
+									</Node>
+								</Node>
+								<Node score="0" recordCount="1">
+									<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.28500001039355993"/>
+									<ScoreDistribution value="0" recordCount="1"/>
+									<ScoreDistribution value="1" recordCount="0"/>
+								</Node>
+								<Node score="1" recordCount="1">
+									<True/>
+									<ScoreDistribution value="0" recordCount="0"/>
+									<ScoreDistribution value="1" recordCount="1"/>
+								</Node>
+							</Node>
+							<Node>
+								<SimplePredicate field="double(age)" operator="lessOrEqual" value="81.5"/>
+								<Node score="0" recordCount="1">
+									<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.3149999864399433"/>
+									<ScoreDistribution value="0" recordCount="1"/>
+									<ScoreDistribution value="1" recordCount="0"/>
+								</Node>
+								<Node score="1" recordCount="1">
+									<True/>
+									<ScoreDistribution value="0" recordCount="0"/>
+									<ScoreDistribution value="1" recordCount="1"/>
+								</Node>
+							</Node>
+							<Node score="0" recordCount="1">
+								<SimplePredicate field="double(age)" operator="lessOrEqual" value="84.5"/>
+								<ScoreDistribution value="0" recordCount="1"/>
+								<ScoreDistribution value="1" recordCount="0"/>
+							</Node>
+							<Node score="0" recordCount="1">
+								<True/>
+								<ScoreDistribution value="0" recordCount="0.8"/>
+								<ScoreDistribution value="1" recordCount="0.2"/>
+							</Node>
+						</Node>
+						<Node>
+							<SimplePredicate field="double(amt)" operator="lessOrEqual" value="921.0"/>
+							<Node>
+								<SimplePredicate field="double(age)" operator="lessOrEqual" value="61.5"/>
+								<Node>
+									<SimplePredicate field="double(amt)" operator="lessOrEqual" value="393.5"/>
+									<Node score="0" recordCount="1">
+										<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.20499999728053808"/>
+										<ScoreDistribution value="0" recordCount="1"/>
+										<ScoreDistribution value="1" recordCount="0"/>
+									</Node>
+									<Node score="1" recordCount="1">
+										<True/>
+										<ScoreDistribution value="0" recordCount="0"/>
+										<ScoreDistribution value="1" recordCount="1"/>
+									</Node>
+								</Node>
+								<Node score="1" recordCount="1">
+									<SimplePredicate field="double(amt)" operator="lessOrEqual" value="537.5"/>
+									<ScoreDistribution value="0" recordCount="0.03773584905660377"/>
+									<ScoreDistribution value="1" recordCount="0.9622641509433962"/>
+								</Node>
+								<Node score="1" recordCount="1">
+									<True/>
+									<ScoreDistribution value="0" recordCount="0.2692307692307692"/>
+									<ScoreDistribution value="1" recordCount="0.7307692307692307"/>
+								</Node>
+							</Node>
+							<Node score="0" recordCount="1">
+								<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.08999999985098839"/>
+								<ScoreDistribution value="0" recordCount="1"/>
+								<ScoreDistribution value="1" recordCount="0"/>
+							</Node>
+							<Node score="1" recordCount="1">
+								<True/>
+								<ScoreDistribution value="0" recordCount="0"/>
+								<ScoreDistribution value="1" recordCount="1"/>
+							</Node>
+						</Node>
+						<Node score="1" recordCount="1">
+							<True/>
+							<ScoreDistribution value="0" recordCount="0"/>
+							<ScoreDistribution value="1" recordCount="1"/>
+						</Node>
+					</Node>
+				</TreeModel>
+			</Segment>
+			<Segment id="9">
+				<True/>
+				<TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+					<MiningSchema>
+						<MiningField name="double(distance)"/>
+					</MiningSchema>
+					<Node>
+						<True/>
+						<Node score="0" recordCount="1">
+							<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.06500000134110451"/>
+							<ScoreDistribution value="0" recordCount="1"/>
+							<ScoreDistribution value="1" recordCount="0"/>
+						</Node>
+						<Node score="1" recordCount="1">
+							<True/>
+							<ScoreDistribution value="0" recordCount="0"/>
+							<ScoreDistribution value="1" recordCount="1"/>
+						</Node>
+					</Node>
+				</TreeModel>
+			</Segment>
+			<Segment id="10">
+				<True/>
+				<TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+					<MiningSchema>
+						<MiningField name="double(amt)"/>
+						<MiningField name="double(age)"/>
+						<MiningField name="double(distance)"/>
+					</MiningSchema>
+					<Node>
+						<True/>
+						<Node>
+							<SimplePredicate field="double(amt)" operator="lessOrEqual" value="190.5"/>
+							<Node>
+								<SimplePredicate field="double(age)" operator="lessOrEqual" value="32.0"/>
+								<Node score="0" recordCount="1">
+									<SimplePredicate field="double(amt)" operator="lessOrEqual" value="97.0"/>
+									<ScoreDistribution value="0" recordCount="1"/>
+									<ScoreDistribution value="1" recordCount="0"/>
+								</Node>
+								<Node score="1" recordCount="1">
+									<True/>
+									<ScoreDistribution value="0" recordCount="0"/>
+									<ScoreDistribution value="1" recordCount="1"/>
+								</Node>
+							</Node>
+							<Node>
+								<SimplePredicate field="double(amt)" operator="lessOrEqual" value="177.0"/>
+								<Node score="0" recordCount="1">
+									<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.5150000043213367"/>
+									<ScoreDistribution value="0" recordCount="1"/>
+									<ScoreDistribution value="1" recordCount="0"/>
+								</Node>
+								<Node score="1" recordCount="1">
+									<True/>
+									<ScoreDistribution value="0" recordCount="0"/>
+									<ScoreDistribution value="1" recordCount="1"/>
+								</Node>
+							</Node>
+							<Node>
+								<SimplePredicate field="double(amt)" operator="lessOrEqual" value="179.5"/>
+								<Node score="0" recordCount="1">
+									<SimplePredicate field="double(age)" operator="lessOrEqual" value="36.5"/>
+									<ScoreDistribution value="0" recordCount="1"/>
+									<ScoreDistribution value="1" recordCount="0"/>
+								</Node>
+								<Node score="1" recordCount="1">
+									<True/>
+									<ScoreDistribution value="0" recordCount="0.3333333333333333"/>
+									<ScoreDistribution value="1" recordCount="0.6666666666666666"/>
+								</Node>
+							</Node>
+							<Node score="0" recordCount="1">
+								<SimplePredicate field="double(age)" operator="lessOrEqual" value="79.0"/>
+								<ScoreDistribution value="0" recordCount="0.8461538461538461"/>
+								<ScoreDistribution value="1" recordCount="0.15384615384615385"/>
+							</Node>
+							<Node score="1" recordCount="1">
+								<True/>
+								<ScoreDistribution value="0" recordCount="0"/>
+								<ScoreDistribution value="1" recordCount="1"/>
+							</Node>
+						</Node>
+						<Node>
+							<SimplePredicate field="double(amt)" operator="lessOrEqual" value="882.5"/>
+							<Node>
+								<SimplePredicate field="double(amt)" operator="lessOrEqual" value="313.5"/>
+								<Node>
+									<SimplePredicate field="double(amt)" operator="lessOrEqual" value="223.0"/>
+									<Node score="1" recordCount="1">
+										<SimplePredicate field="double(age)" operator="lessOrEqual" value="43.5"/>
+										<ScoreDistribution value="0" recordCount="0.06666666666666667"/>
+										<ScoreDistribution value="1" recordCount="0.9333333333333333"/>
+									</Node>
+									<Node score="0" recordCount="1">
+										<True/>
+										<ScoreDistribution value="0" recordCount="0.5416666666666666"/>
+										<ScoreDistribution value="1" recordCount="0.4583333333333333"/>
+									</Node>
+								</Node>
+								<Node score="0" recordCount="1">
+									<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.20499999728053808"/>
+									<ScoreDistribution value="0" recordCount="1"/>
+									<ScoreDistribution value="1" recordCount="0"/>
+								</Node>
+								<Node score="1" recordCount="1">
+									<True/>
+									<ScoreDistribution value="0" recordCount="0"/>
+									<ScoreDistribution value="1" recordCount="1"/>
+								</Node>
+							</Node>
+							<Node>
+								<SimplePredicate field="double(amt)" operator="lessOrEqual" value="331.0"/>
+								<Node score="0" recordCount="1">
+									<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.21999999321997166"/>
+									<ScoreDistribution value="0" recordCount="1"/>
+									<ScoreDistribution value="1" recordCount="0"/>
+								</Node>
+								<Node score="1" recordCount="1">
+									<True/>
+									<ScoreDistribution value="0" recordCount="0"/>
+									<ScoreDistribution value="1" recordCount="1"/>
+								</Node>
+							</Node>
+							<Node score="0" recordCount="1">
+								<SimplePredicate field="double(age)" operator="lessOrEqual" value="42.0"/>
+								<ScoreDistribution value="0" recordCount="0.5416666666666666"/>
+								<ScoreDistribution value="1" recordCount="0.4583333333333333"/>
+							</Node>
+							<Node score="1" recordCount="1">
+								<True/>
+								<ScoreDistribution value="0" recordCount="0.266304347826087"/>
+								<ScoreDistribution value="1" recordCount="0.7336956521739131"/>
+							</Node>
+						</Node>
+						<Node score="0" recordCount="1">
+							<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.050000001676380634"/>
+							<ScoreDistribution value="0" recordCount="1"/>
+							<ScoreDistribution value="1" recordCount="0"/>
+						</Node>
+						<Node score="1" recordCount="1">
+							<True/>
+							<ScoreDistribution value="0" recordCount="0"/>
+							<ScoreDistribution value="1" recordCount="1"/>
+						</Node>
+					</Node>
+				</TreeModel>
+			</Segment>
+			<Segment id="11">
+				<True/>
+				<TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+					<MiningSchema>
+						<MiningField name="double(amt)"/>
+						<MiningField name="double(distance)"/>
+					</MiningSchema>
+					<Node>
+						<True/>
+						<Node>
+							<SimplePredicate field="double(amt)" operator="lessOrEqual" value="208.5"/>
+							<Node score="0" recordCount="1">
+								<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.11000000312924385"/>
+								<ScoreDistribution value="0" recordCount="1"/>
+								<ScoreDistribution value="1" recordCount="0"/>
+							</Node>
+							<Node score="1" recordCount="1">
+								<True/>
+								<ScoreDistribution value="0" recordCount="0"/>
+								<ScoreDistribution value="1" recordCount="1"/>
+							</Node>
+						</Node>
+						<Node>
+							<SimplePredicate field="double(amt)" operator="lessOrEqual" value="805.5"/>
+							<Node score="0" recordCount="1">
+								<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.07499999925494194"/>
+								<ScoreDistribution value="0" recordCount="1"/>
+								<ScoreDistribution value="1" recordCount="0"/>
+							</Node>
+							<Node score="1" recordCount="1">
+								<True/>
+								<ScoreDistribution value="0" recordCount="0"/>
+								<ScoreDistribution value="1" recordCount="1"/>
+							</Node>
+						</Node>
+						<Node score="0" recordCount="1">
+							<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.15000000037252903"/>
+							<ScoreDistribution value="0" recordCount="1"/>
+							<ScoreDistribution value="1" recordCount="0"/>
+						</Node>
+						<Node score="1" recordCount="1">
+							<True/>
+							<ScoreDistribution value="0" recordCount="0"/>
+							<ScoreDistribution value="1" recordCount="1"/>
+						</Node>
+					</Node>
+				</TreeModel>
+			</Segment>
+			<Segment id="12">
+				<True/>
+				<TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+					<MiningSchema>
+						<MiningField name="double(distance)"/>
+					</MiningSchema>
+					<Node>
+						<True/>
+						<Node score="0" recordCount="1">
+							<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.07499999925494194"/>
+							<ScoreDistribution value="0" recordCount="1"/>
+							<ScoreDistribution value="1" recordCount="0"/>
+						</Node>
+						<Node score="1" recordCount="1">
+							<True/>
+							<ScoreDistribution value="0" recordCount="0"/>
+							<ScoreDistribution value="1" recordCount="1"/>
+						</Node>
+					</Node>
+				</TreeModel>
+			</Segment>
+			<Segment id="13">
+				<True/>
+				<TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+					<MiningSchema>
+						<MiningField name="double(distance)"/>
+					</MiningSchema>
+					<Node>
+						<True/>
+						<Node score="0" recordCount="1">
+							<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.06500000134110451"/>
+							<ScoreDistribution value="0" recordCount="1"/>
+							<ScoreDistribution value="1" recordCount="0"/>
+						</Node>
+						<Node score="1" recordCount="1">
+							<True/>
+							<ScoreDistribution value="0" recordCount="0"/>
+							<ScoreDistribution value="1" recordCount="1"/>
+						</Node>
+					</Node>
+				</TreeModel>
+			</Segment>
+			<Segment id="14">
+				<True/>
+				<TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+					<MiningSchema>
+						<MiningField name="double(distance)"/>
+					</MiningSchema>
+					<Node>
+						<True/>
+						<Node score="0" recordCount="1">
+							<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.07499999925494194"/>
+							<ScoreDistribution value="0" recordCount="1"/>
+							<ScoreDistribution value="1" recordCount="0"/>
+						</Node>
+						<Node score="1" recordCount="1">
+							<True/>
+							<ScoreDistribution value="0" recordCount="0"/>
+							<ScoreDistribution value="1" recordCount="1"/>
+						</Node>
+					</Node>
+				</TreeModel>
+			</Segment>
+			<Segment id="15">
+				<True/>
+				<TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+					<MiningSchema>
+						<MiningField name="double(amt)"/>
+						<MiningField name="double(age)"/>
+						<MiningField name="double(distance)"/>
+					</MiningSchema>
+					<Node>
+						<True/>
+						<Node>
+							<SimplePredicate field="double(age)" operator="lessOrEqual" value="52.5"/>
+							<Node>
+								<SimplePredicate field="double(age)" operator="lessOrEqual" value="34.5"/>
+								<Node score="0" recordCount="1">
+									<SimplePredicate field="double(amt)" operator="lessOrEqual" value="97.0"/>
+									<ScoreDistribution value="0" recordCount="1"/>
+									<ScoreDistribution value="1" recordCount="0"/>
+								</Node>
+								<Node score="1" recordCount="1">
+									<SimplePredicate field="double(age)" operator="lessOrEqual" value="32.0"/>
+									<ScoreDistribution value="0" recordCount="0"/>
+									<ScoreDistribution value="1" recordCount="1"/>
+								</Node>
+								<Node score="0" recordCount="1">
+									<SimplePredicate field="double(amt)" operator="lessOrEqual" value="861.0"/>
+									<ScoreDistribution value="0" recordCount="0.9285714285714286"/>
+									<ScoreDistribution value="1" recordCount="0.07142857142857142"/>
+								</Node>
+								<Node score="1" recordCount="1">
+									<True/>
+									<ScoreDistribution value="0" recordCount="0"/>
+									<ScoreDistribution value="1" recordCount="1"/>
+								</Node>
+							</Node>
+							<Node>
+								<SimplePredicate field="double(amt)" operator="lessOrEqual" value="237.5"/>
+								<Node score="0" recordCount="1">
+									<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.36000000312924385"/>
+									<ScoreDistribution value="0" recordCount="1"/>
+									<ScoreDistribution value="1" recordCount="0"/>
+								</Node>
+								<Node score="1" recordCount="1">
+									<True/>
+									<ScoreDistribution value="0" recordCount="0"/>
+									<ScoreDistribution value="1" recordCount="1"/>
+								</Node>
+							</Node>
+							<Node score="0" recordCount="1">
+								<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.06999999936670065"/>
+								<ScoreDistribution value="0" recordCount="1"/>
+								<ScoreDistribution value="1" recordCount="0"/>
+							</Node>
+							<Node score="1" recordCount="1">
+								<True/>
+								<ScoreDistribution value="0" recordCount="0"/>
+								<ScoreDistribution value="1" recordCount="1"/>
+							</Node>
+						</Node>
+						<Node>
+							<SimplePredicate field="double(age)" operator="lessOrEqual" value="61.5"/>
+							<Node>
+								<SimplePredicate field="double(age)" operator="lessOrEqual" value="54.0"/>
+								<Node score="0" recordCount="1">
+									<SimplePredicate field="double(amt)" operator="lessOrEqual" value="391.5"/>
+									<ScoreDistribution value="0" recordCount="1"/>
+									<ScoreDistribution value="1" recordCount="0"/>
+								</Node>
+								<Node score="1" recordCount="1">
+									<True/>
+									<ScoreDistribution value="0" recordCount="0"/>
+									<ScoreDistribution value="1" recordCount="1"/>
+								</Node>
+							</Node>
+							<Node score="0" recordCount="1">
+								<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.21999999321997166"/>
+								<ScoreDistribution value="0" recordCount="1"/>
+								<ScoreDistribution value="1" recordCount="0"/>
+							</Node>
+							<Node score="1" recordCount="1">
+								<True/>
+								<ScoreDistribution value="0" recordCount="0"/>
+								<ScoreDistribution value="1" recordCount="1"/>
+							</Node>
+						</Node>
+						<Node>
+							<SimplePredicate field="double(amt)" operator="lessOrEqual" value="187.0"/>
+							<Node score="0" recordCount="1">
+								<SimplePredicate field="double(amt)" operator="lessOrEqual" value="182.0"/>
+								<ScoreDistribution value="0" recordCount="1"/>
+								<ScoreDistribution value="1" recordCount="0"/>
+							</Node>
+							<Node score="0" recordCount="1">
+								<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.6800000164657831"/>
+								<ScoreDistribution value="0" recordCount="1"/>
+								<ScoreDistribution value="1" recordCount="0"/>
+							</Node>
+							<Node score="1" recordCount="1">
+								<True/>
+								<ScoreDistribution value="0" recordCount="0"/>
+								<ScoreDistribution value="1" recordCount="1"/>
+							</Node>
+						</Node>
+						<Node>
+							<SimplePredicate field="double(age)" operator="lessOrEqual" value="70.5"/>
+							<Node score="0" recordCount="1">
+								<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.29500000551342964"/>
+								<ScoreDistribution value="0" recordCount="1"/>
+								<ScoreDistribution value="1" recordCount="0"/>
+							</Node>
+							<Node score="1" recordCount="1">
+								<True/>
+								<ScoreDistribution value="0" recordCount="0"/>
+								<ScoreDistribution value="1" recordCount="1"/>
+							</Node>
+						</Node>
+						<Node score="1" recordCount="1">
+							<SimplePredicate field="double(amt)" operator="lessOrEqual" value="785.0"/>
+							<ScoreDistribution value="0" recordCount="0.2692307692307692"/>
+							<ScoreDistribution value="1" recordCount="0.7307692307692307"/>
+						</Node>
+						<Node score="1" recordCount="1">
+							<True/>
+							<ScoreDistribution value="0" recordCount="0"/>
+							<ScoreDistribution value="1" recordCount="1"/>
+						</Node>
+					</Node>
+				</TreeModel>
+			</Segment>
+			<Segment id="16">
+				<True/>
+				<TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+					<MiningSchema>
+						<MiningField name="double(amt)"/>
+						<MiningField name="double(age)"/>
+						<MiningField name="double(distance)"/>
+					</MiningSchema>
+					<Node>
+						<True/>
+						<Node>
+							<SimplePredicate field="double(age)" operator="lessOrEqual" value="52.5"/>
+							<Node score="0" recordCount="1">
+								<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.06500000134110451"/>
+								<ScoreDistribution value="0" recordCount="1"/>
+								<ScoreDistribution value="1" recordCount="0"/>
+							</Node>
+							<Node score="1" recordCount="1">
+								<True/>
+								<ScoreDistribution value="0" recordCount="0"/>
+								<ScoreDistribution value="1" recordCount="1"/>
+							</Node>
+						</Node>
+						<Node>
+							<SimplePredicate field="double(amt)" operator="lessOrEqual" value="210.0"/>
+							<Node score="0" recordCount="1">
+								<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.529999990016222"/>
+								<ScoreDistribution value="0" recordCount="1"/>
+								<ScoreDistribution value="1" recordCount="0"/>
+							</Node>
+							<Node score="1" recordCount="1">
+								<True/>
+								<ScoreDistribution value="0" recordCount="0"/>
+								<ScoreDistribution value="1" recordCount="1"/>
+							</Node>
+						</Node>
+						<Node>
+							<SimplePredicate field="double(amt)" operator="lessOrEqual" value="879.5"/>
+							<Node score="0" recordCount="1">
+								<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.08999999985098839"/>
+								<ScoreDistribution value="0" recordCount="1"/>
+								<ScoreDistribution value="1" recordCount="0"/>
+							</Node>
+							<Node score="1" recordCount="1">
+								<True/>
+								<ScoreDistribution value="0" recordCount="0"/>
+								<ScoreDistribution value="1" recordCount="1"/>
+							</Node>
+						</Node>
+						<Node score="0" recordCount="1">
+							<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.14500000048428774"/>
+							<ScoreDistribution value="0" recordCount="1"/>
+							<ScoreDistribution value="1" recordCount="0"/>
+						</Node>
+						<Node score="1" recordCount="1">
+							<True/>
+							<ScoreDistribution value="0" recordCount="0"/>
+							<ScoreDistribution value="1" recordCount="1"/>
+						</Node>
+					</Node>
+				</TreeModel>
+			</Segment>
+			<Segment id="17">
+				<True/>
+				<TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+					<MiningSchema>
+						<MiningField name="double(amt)"/>
+						<MiningField name="double(distance)"/>
+					</MiningSchema>
+					<Node>
+						<True/>
+						<Node>
+							<SimplePredicate field="double(amt)" operator="lessOrEqual" value="199.5"/>
+							<Node score="0" recordCount="1">
+								<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.11000000312924385"/>
+								<ScoreDistribution value="0" recordCount="1"/>
+								<ScoreDistribution value="1" recordCount="0"/>
+							</Node>
+							<Node score="1" recordCount="1">
+								<True/>
+								<ScoreDistribution value="0" recordCount="0"/>
+								<ScoreDistribution value="1" recordCount="1"/>
+							</Node>
+						</Node>
+						<Node score="0" recordCount="1">
+							<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.06500000134110451"/>
+							<ScoreDistribution value="0" recordCount="1"/>
+							<ScoreDistribution value="1" recordCount="0"/>
+						</Node>
+						<Node score="1" recordCount="1">
+							<True/>
+							<ScoreDistribution value="0" recordCount="0"/>
+							<ScoreDistribution value="1" recordCount="1"/>
+						</Node>
+					</Node>
+				</TreeModel>
+			</Segment>
+			<Segment id="18">
+				<True/>
+				<TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+					<MiningSchema>
+						<MiningField name="double(amt)"/>
+						<MiningField name="double(age)"/>
+						<MiningField name="double(distance)"/>
+					</MiningSchema>
+					<Node>
+						<True/>
+						<Node>
+							<SimplePredicate field="double(amt)" operator="lessOrEqual" value="304.0"/>
+							<Node>
+								<SimplePredicate field="double(age)" operator="lessOrEqual" value="32.0"/>
+								<Node>
+									<SimplePredicate field="double(age)" operator="lessOrEqual" value="28.0"/>
+									<Node score="0" recordCount="1">
+										<SimplePredicate field="double(amt)" operator="lessOrEqual" value="64.5"/>
+										<ScoreDistribution value="0" recordCount="1"/>
+										<ScoreDistribution value="1" recordCount="0"/>
+									</Node>
+									<Node score="1" recordCount="1">
+										<True/>
+										<ScoreDistribution value="0" recordCount="0"/>
+										<ScoreDistribution value="1" recordCount="1"/>
+									</Node>
+								</Node>
+								<Node score="0" recordCount="1">
+									<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.3200000021606684"/>
+									<ScoreDistribution value="0" recordCount="1"/>
+									<ScoreDistribution value="1" recordCount="0"/>
+								</Node>
+								<Node score="1" recordCount="1">
+									<True/>
+									<ScoreDistribution value="0" recordCount="0"/>
+									<ScoreDistribution value="1" recordCount="1"/>
+								</Node>
+							</Node>
+							<Node score="0" recordCount="1">
+								<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.19499999657273293"/>
+								<ScoreDistribution value="0" recordCount="1"/>
+								<ScoreDistribution value="1" recordCount="0"/>
+							</Node>
+							<Node score="1" recordCount="1">
+								<True/>
+								<ScoreDistribution value="0" recordCount="0"/>
+								<ScoreDistribution value="1" recordCount="1"/>
+							</Node>
+						</Node>
+						<Node>
+							<SimplePredicate field="double(amt)" operator="lessOrEqual" value="790.5"/>
+							<Node score="0" recordCount="1">
+								<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.07499999925494194"/>
+								<ScoreDistribution value="0" recordCount="1"/>
+								<ScoreDistribution value="1" recordCount="0"/>
+							</Node>
+							<Node score="1" recordCount="1">
+								<True/>
+								<ScoreDistribution value="0" recordCount="0"/>
+								<ScoreDistribution value="1" recordCount="1"/>
+							</Node>
+						</Node>
+						<Node>
+							<SimplePredicate field="double(age)" operator="lessOrEqual" value="69.5"/>
+							<Node score="0" recordCount="1">
+								<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.060000001452863216"/>
+								<ScoreDistribution value="0" recordCount="1"/>
+								<ScoreDistribution value="1" recordCount="0"/>
+							</Node>
+							<Node score="1" recordCount="1">
+								<True/>
+								<ScoreDistribution value="0" recordCount="0"/>
+								<ScoreDistribution value="1" recordCount="1"/>
+							</Node>
+						</Node>
+						<Node score="1" recordCount="1">
+							<True/>
+							<ScoreDistribution value="0" recordCount="0"/>
+							<ScoreDistribution value="1" recordCount="1"/>
+						</Node>
+					</Node>
+				</TreeModel>
+			</Segment>
+			<Segment id="19">
+				<True/>
+				<TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+					<MiningSchema>
+						<MiningField name="double(amt)"/>
+						<MiningField name="double(age)"/>
+						<MiningField name="double(distance)"/>
+					</MiningSchema>
+					<Node>
+						<True/>
+						<Node>
+							<SimplePredicate field="double(age)" operator="lessOrEqual" value="52.5"/>
+							<Node>
+								<SimplePredicate field="double(amt)" operator="lessOrEqual" value="282.5"/>
+								<Node score="0" recordCount="1">
+									<SimplePredicate field="double(amt)" operator="lessOrEqual" value="98.5"/>
+									<ScoreDistribution value="0" recordCount="1"/>
+									<ScoreDistribution value="1" recordCount="0"/>
+								</Node>
+								<Node>
+									<SimplePredicate field="double(amt)" operator="lessOrEqual" value="106.0"/>
+									<Node score="0" recordCount="1">
+										<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.09500000346451998"/>
+										<ScoreDistribution value="0" recordCount="1"/>
+										<ScoreDistribution value="1" recordCount="0"/>
+									</Node>
+									<Node score="1" recordCount="1">
+										<True/>
+										<ScoreDistribution value="0" recordCount="0"/>
+										<ScoreDistribution value="1" recordCount="1"/>
+									</Node>
+								</Node>
+								<Node score="0" recordCount="1">
+									<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.19500000681728125"/>
+									<ScoreDistribution value="0" recordCount="1"/>
+									<ScoreDistribution value="1" recordCount="0"/>
+								</Node>
+								<Node score="1" recordCount="1">
+									<True/>
+									<ScoreDistribution value="0" recordCount="0"/>
+									<ScoreDistribution value="1" recordCount="1"/>
+								</Node>
+							</Node>
+							<Node score="0" recordCount="1">
+								<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.060000001452863216"/>
+								<ScoreDistribution value="0" recordCount="1"/>
+								<ScoreDistribution value="1" recordCount="0"/>
+							</Node>
+							<Node score="1" recordCount="1">
+								<True/>
+								<ScoreDistribution value="0" recordCount="0"/>
+								<ScoreDistribution value="1" recordCount="1"/>
+							</Node>
+						</Node>
+						<Node>
+							<SimplePredicate field="double(age)" operator="lessOrEqual" value="61.5"/>
+							<Node score="0" recordCount="1">
+								<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.1999999973922968"/>
+								<ScoreDistribution value="0" recordCount="1"/>
+								<ScoreDistribution value="1" recordCount="0"/>
+							</Node>
+							<Node score="1" recordCount="1">
+								<True/>
+								<ScoreDistribution value="0" recordCount="0"/>
+								<ScoreDistribution value="1" recordCount="1"/>
+							</Node>
+						</Node>
+						<Node score="0" recordCount="1">
+							<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.08999999985098839"/>
+							<ScoreDistribution value="0" recordCount="1"/>
+							<ScoreDistribution value="1" recordCount="0"/>
+						</Node>
+						<Node score="1" recordCount="1">
+							<True/>
+							<ScoreDistribution value="0" recordCount="0"/>
+							<ScoreDistribution value="1" recordCount="1"/>
+						</Node>
+					</Node>
+				</TreeModel>
+			</Segment>
+			<Segment id="20">
+				<True/>
+				<TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+					<MiningSchema>
+						<MiningField name="double(distance)"/>
+					</MiningSchema>
+					<Node>
+						<True/>
+						<Node score="0" recordCount="1">
+							<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.06500000134110451"/>
+							<ScoreDistribution value="0" recordCount="1"/>
+							<ScoreDistribution value="1" recordCount="0"/>
+						</Node>
+						<Node score="1" recordCount="1">
+							<True/>
+							<ScoreDistribution value="0" recordCount="0"/>
+							<ScoreDistribution value="1" recordCount="1"/>
+						</Node>
+					</Node>
+				</TreeModel>
+			</Segment>
+			<Segment id="21">
+				<True/>
+				<TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+					<MiningSchema>
+						<MiningField name="double(age)"/>
+						<MiningField name="double(distance)"/>
+					</MiningSchema>
+					<Node>
+						<True/>
+						<Node>
+							<SimplePredicate field="double(age)" operator="lessOrEqual" value="52.5"/>
+							<Node score="0" recordCount="1">
+								<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.06500000134110451"/>
+								<ScoreDistribution value="0" recordCount="1"/>
+								<ScoreDistribution value="1" recordCount="0"/>
+							</Node>
+							<Node score="1" recordCount="1">
+								<True/>
+								<ScoreDistribution value="0" recordCount="0"/>
+								<ScoreDistribution value="1" recordCount="1"/>
+							</Node>
+						</Node>
+						<Node score="0" recordCount="1">
+							<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.08999999985098839"/>
+							<ScoreDistribution value="0" recordCount="1"/>
+							<ScoreDistribution value="1" recordCount="0"/>
+						</Node>
+						<Node score="1" recordCount="1">
+							<True/>
+							<ScoreDistribution value="0" recordCount="0"/>
+							<ScoreDistribution value="1" recordCount="1"/>
+						</Node>
+					</Node>
+				</TreeModel>
+			</Segment>
+			<Segment id="22">
+				<True/>
+				<TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+					<MiningSchema>
+						<MiningField name="double(amt)"/>
+						<MiningField name="double(age)"/>
+						<MiningField name="double(distance)"/>
+					</MiningSchema>
+					<Node>
+						<True/>
+						<Node>
+							<SimplePredicate field="double(amt)" operator="lessOrEqual" value="187.5"/>
+							<Node score="0" recordCount="1">
+								<SimplePredicate field="double(amt)" operator="lessOrEqual" value="98.5"/>
+								<ScoreDistribution value="0" recordCount="1"/>
+								<ScoreDistribution value="1" recordCount="0"/>
+							</Node>
+							<Node>
+								<SimplePredicate field="double(amt)" operator="lessOrEqual" value="107.0"/>
+								<Node score="1" recordCount="1">
+									<SimplePredicate field="double(age)" operator="lessOrEqual" value="35.5"/>
+									<ScoreDistribution value="0" recordCount="0"/>
+									<ScoreDistribution value="1" recordCount="1"/>
+								</Node>
+								<Node score="0" recordCount="1">
+									<True/>
+									<ScoreDistribution value="0" recordCount="1"/>
+									<ScoreDistribution value="1" recordCount="0"/>
+								</Node>
+							</Node>
+							<Node score="0" recordCount="1">
+								<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.3749999888241291"/>
+								<ScoreDistribution value="0" recordCount="1"/>
+								<ScoreDistribution value="1" recordCount="0"/>
+							</Node>
+							<Node score="1" recordCount="1">
+								<True/>
+								<ScoreDistribution value="0" recordCount="0"/>
+								<ScoreDistribution value="1" recordCount="1"/>
+							</Node>
+						</Node>
+						<Node>
+							<SimplePredicate field="double(amt)" operator="lessOrEqual" value="361.0"/>
+							<Node score="0" recordCount="1">
+								<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.18999999668449163"/>
+								<ScoreDistribution value="0" recordCount="1"/>
+								<ScoreDistribution value="1" recordCount="0"/>
+							</Node>
+							<Node score="1" recordCount="1">
+								<True/>
+								<ScoreDistribution value="0" recordCount="0"/>
+								<ScoreDistribution value="1" recordCount="1"/>
+							</Node>
+						</Node>
+						<Node score="0" recordCount="1">
+							<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.06999999936670065"/>
+							<ScoreDistribution value="0" recordCount="1"/>
+							<ScoreDistribution value="1" recordCount="0"/>
+						</Node>
+						<Node score="1" recordCount="1">
+							<True/>
+							<ScoreDistribution value="0" recordCount="0"/>
+							<ScoreDistribution value="1" recordCount="1"/>
+						</Node>
+					</Node>
+				</TreeModel>
+			</Segment>
+			<Segment id="23">
+				<True/>
+				<TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+					<MiningSchema>
+						<MiningField name="double(age)"/>
+						<MiningField name="double(distance)"/>
+					</MiningSchema>
+					<Node>
+						<True/>
+						<Node>
+							<SimplePredicate field="double(age)" operator="lessOrEqual" value="52.5"/>
+							<Node score="0" recordCount="1">
+								<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.11000000312924385"/>
+								<ScoreDistribution value="0" recordCount="1"/>
+								<ScoreDistribution value="1" recordCount="0"/>
+							</Node>
+							<Node score="1" recordCount="1">
+								<True/>
+								<ScoreDistribution value="0" recordCount="0"/>
+								<ScoreDistribution value="1" recordCount="1"/>
+							</Node>
+						</Node>
+						<Node score="0" recordCount="1">
+							<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.1600000001490116"/>
+							<ScoreDistribution value="0" recordCount="1"/>
+							<ScoreDistribution value="1" recordCount="0"/>
+						</Node>
+						<Node score="1" recordCount="1">
+							<True/>
+							<ScoreDistribution value="0" recordCount="0"/>
+							<ScoreDistribution value="1" recordCount="1"/>
+						</Node>
+					</Node>
+				</TreeModel>
+			</Segment>
+			<Segment id="24">
+				<True/>
+				<TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+					<MiningSchema>
+						<MiningField name="double(age)"/>
+						<MiningField name="double(distance)"/>
+					</MiningSchema>
+					<Node>
+						<True/>
+						<Node>
+							<SimplePredicate field="double(age)" operator="lessOrEqual" value="52.5"/>
+							<Node score="0" recordCount="1">
+								<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.06500000134110451"/>
+								<ScoreDistribution value="0" recordCount="1"/>
+								<ScoreDistribution value="1" recordCount="0"/>
+							</Node>
+							<Node score="1" recordCount="1">
+								<True/>
+								<ScoreDistribution value="0" recordCount="0"/>
+								<ScoreDistribution value="1" recordCount="1"/>
+							</Node>
+						</Node>
+						<Node score="0" recordCount="1">
+							<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.1600000001490116"/>
+							<ScoreDistribution value="0" recordCount="1"/>
+							<ScoreDistribution value="1" recordCount="0"/>
+						</Node>
+						<Node score="1" recordCount="1">
+							<True/>
+							<ScoreDistribution value="0" recordCount="0"/>
+							<ScoreDistribution value="1" recordCount="1"/>
+						</Node>
+					</Node>
+				</TreeModel>
+			</Segment>
+			<Segment id="25">
+				<True/>
+				<TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+					<MiningSchema>
+						<MiningField name="double(amt)"/>
+						<MiningField name="double(age)"/>
+						<MiningField name="double(distance)"/>
+					</MiningSchema>
+					<Node>
+						<True/>
+						<Node>
+							<SimplePredicate field="double(age)" operator="lessOrEqual" value="52.5"/>
+							<Node score="0" recordCount="1">
+								<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.24999999906867743"/>
+								<ScoreDistribution value="0" recordCount="1"/>
+								<ScoreDistribution value="1" recordCount="0"/>
+							</Node>
+							<Node score="1" recordCount="1">
+								<True/>
+								<ScoreDistribution value="0" recordCount="0"/>
+								<ScoreDistribution value="1" recordCount="1"/>
+							</Node>
+						</Node>
+						<Node>
+							<SimplePredicate field="double(amt)" operator="lessOrEqual" value="201.5"/>
+							<Node score="0" recordCount="1">
+								<SimplePredicate field="double(amt)" operator="lessOrEqual" value="169.0"/>
+								<ScoreDistribution value="0" recordCount="1"/>
+								<ScoreDistribution value="1" recordCount="0"/>
+							</Node>
+							<Node>
+								<SimplePredicate field="double(amt)" operator="lessOrEqual" value="173.5"/>
+								<Node score="1" recordCount="1">
+									<SimplePredicate field="double(age)" operator="lessOrEqual" value="76.0"/>
+									<ScoreDistribution value="0" recordCount="0"/>
+									<ScoreDistribution value="1" recordCount="1"/>
+								</Node>
+								<Node score="0" recordCount="1">
+									<True/>
+									<ScoreDistribution value="0" recordCount="1"/>
+									<ScoreDistribution value="1" recordCount="0"/>
+								</Node>
+							</Node>
+							<Node score="0" recordCount="1">
+								<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.6850000163540244"/>
+								<ScoreDistribution value="0" recordCount="1"/>
+								<ScoreDistribution value="1" recordCount="0"/>
+							</Node>
+							<Node score="1" recordCount="1">
+								<True/>
+								<ScoreDistribution value="0" recordCount="0"/>
+								<ScoreDistribution value="1" recordCount="1"/>
+							</Node>
+						</Node>
+						<Node>
+							<SimplePredicate field="double(amt)" operator="lessOrEqual" value="921.0"/>
+							<Node score="0" recordCount="1">
+								<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.08999999985098839"/>
+								<ScoreDistribution value="0" recordCount="1"/>
+								<ScoreDistribution value="1" recordCount="0"/>
+							</Node>
+							<Node score="1" recordCount="1">
+								<True/>
+								<ScoreDistribution value="0" recordCount="0"/>
+								<ScoreDistribution value="1" recordCount="1"/>
+							</Node>
+						</Node>
+						<Node score="1" recordCount="1">
+							<True/>
+							<ScoreDistribution value="0" recordCount="0"/>
+							<ScoreDistribution value="1" recordCount="1"/>
+						</Node>
+					</Node>
+				</TreeModel>
+			</Segment>
+			<Segment id="26">
+				<True/>
+				<TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+					<MiningSchema>
+						<MiningField name="double(amt)"/>
+						<MiningField name="double(age)"/>
+						<MiningField name="double(distance)"/>
+					</MiningSchema>
+					<Node>
+						<True/>
+						<Node>
+							<SimplePredicate field="double(amt)" operator="lessOrEqual" value="212.5"/>
+							<Node>
+								<SimplePredicate field="double(age)" operator="lessOrEqual" value="32.5"/>
+								<Node score="0" recordCount="1">
+									<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.10000000335276127"/>
+									<ScoreDistribution value="0" recordCount="1"/>
+									<ScoreDistribution value="1" recordCount="0"/>
+								</Node>
+								<Node score="1" recordCount="1">
+									<True/>
+									<ScoreDistribution value="0" recordCount="0"/>
+									<ScoreDistribution value="1" recordCount="1"/>
+								</Node>
+							</Node>
+							<Node>
+								<SimplePredicate field="double(amt)" operator="lessOrEqual" value="173.5"/>
+								<Node score="0" recordCount="1">
+									<SimplePredicate field="double(amt)" operator="lessOrEqual" value="170.5"/>
+									<ScoreDistribution value="0" recordCount="1"/>
+									<ScoreDistribution value="1" recordCount="0"/>
+								</Node>
+								<Node score="0" recordCount="1">
+									<SimplePredicate field="double(amt)" operator="lessOrEqual" value="172.5"/>
+									<ScoreDistribution value="0" recordCount="0.5"/>
+									<ScoreDistribution value="1" recordCount="0.5"/>
+								</Node>
+								<Node score="0" recordCount="1">
+									<True/>
+									<ScoreDistribution value="0" recordCount="1"/>
+									<ScoreDistribution value="1" recordCount="0"/>
+								</Node>
+							</Node>
+							<Node score="1" recordCount="1">
+								<SimplePredicate field="double(amt)" operator="lessOrEqual" value="174.5"/>
+								<ScoreDistribution value="0" recordCount="0"/>
+								<ScoreDistribution value="1" recordCount="1"/>
+							</Node>
+							<Node score="0" recordCount="1">
+								<SimplePredicate field="double(amt)" operator="lessOrEqual" value="210.5"/>
+								<ScoreDistribution value="0" recordCount="0.6875"/>
+								<ScoreDistribution value="1" recordCount="0.3125"/>
+							</Node>
+							<Node score="0" recordCount="1">
+								<True/>
+								<ScoreDistribution value="0" recordCount="1"/>
+								<ScoreDistribution value="1" recordCount="0"/>
+							</Node>
+						</Node>
+						<Node>
+							<SimplePredicate field="double(age)" operator="lessOrEqual" value="42.0"/>
+							<Node score="0" recordCount="1">
+								<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.10999999847263098"/>
+								<ScoreDistribution value="0" recordCount="1"/>
+								<ScoreDistribution value="1" recordCount="0"/>
+							</Node>
+							<Node score="1" recordCount="1">
+								<True/>
+								<ScoreDistribution value="0" recordCount="0"/>
+								<ScoreDistribution value="1" recordCount="1"/>
+							</Node>
+						</Node>
+						<Node score="0" recordCount="1">
+							<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.06999999936670065"/>
+							<ScoreDistribution value="0" recordCount="1"/>
+							<ScoreDistribution value="1" recordCount="0"/>
+						</Node>
+						<Node score="1" recordCount="1">
+							<True/>
+							<ScoreDistribution value="0" recordCount="0"/>
+							<ScoreDistribution value="1" recordCount="1"/>
+						</Node>
+					</Node>
+				</TreeModel>
+			</Segment>
+			<Segment id="27">
+				<True/>
+				<TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+					<MiningSchema>
+						<MiningField name="double(distance)"/>
+					</MiningSchema>
+					<Node>
+						<True/>
+						<Node score="0" recordCount="1">
+							<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.06500000134110451"/>
+							<ScoreDistribution value="0" recordCount="1"/>
+							<ScoreDistribution value="1" recordCount="0"/>
+						</Node>
+						<Node score="1" recordCount="1">
+							<True/>
+							<ScoreDistribution value="0" recordCount="0"/>
+							<ScoreDistribution value="1" recordCount="1"/>
+						</Node>
+					</Node>
+				</TreeModel>
+			</Segment>
+			<Segment id="28">
+				<True/>
+				<TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+					<MiningSchema>
+						<MiningField name="double(amt)"/>
+						<MiningField name="double(age)"/>
+						<MiningField name="double(distance)"/>
+					</MiningSchema>
+					<Node>
+						<True/>
+						<Node>
+							<SimplePredicate field="double(age)" operator="lessOrEqual" value="54.0"/>
+							<Node>
+								<SimplePredicate field="double(age)" operator="lessOrEqual" value="32.0"/>
+								<Node score="0" recordCount="1">
+									<SimplePredicate field="double(amt)" operator="lessOrEqual" value="97.0"/>
+									<ScoreDistribution value="0" recordCount="1"/>
+									<ScoreDistribution value="1" recordCount="0"/>
+								</Node>
+								<Node score="1" recordCount="1">
+									<True/>
+									<ScoreDistribution value="0" recordCount="0"/>
+									<ScoreDistribution value="1" recordCount="1"/>
+								</Node>
+							</Node>
+							<Node>
+								<SimplePredicate field="double(age)" operator="lessOrEqual" value="49.5"/>
+								<Node>
+									<SimplePredicate field="double(age)" operator="lessOrEqual" value="34.5"/>
+									<Node score="0" recordCount="1">
+										<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.3299999972805381"/>
+										<ScoreDistribution value="0" recordCount="1"/>
+										<ScoreDistribution value="1" recordCount="0"/>
+									</Node>
+									<Node score="1" recordCount="1">
+										<True/>
+										<ScoreDistribution value="0" recordCount="0"/>
+										<ScoreDistribution value="1" recordCount="1"/>
+									</Node>
+								</Node>
+								<Node score="0" recordCount="1">
+									<SimplePredicate field="double(amt)" operator="lessOrEqual" value="239.5"/>
+									<ScoreDistribution value="0" recordCount="0.9447513812154696"/>
+									<ScoreDistribution value="1" recordCount="0.055248618784530384"/>
+								</Node>
+								<Node score="1" recordCount="1">
+									<True/>
+									<ScoreDistribution value="0" recordCount="0.3937007874015748"/>
+									<ScoreDistribution value="1" recordCount="0.6062992125984252"/>
+								</Node>
+							</Node>
+							<Node score="0" recordCount="1">
+								<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.1449999948963523"/>
+								<ScoreDistribution value="0" recordCount="1"/>
+								<ScoreDistribution value="1" recordCount="0"/>
+							</Node>
+							<Node score="1" recordCount="1">
+								<True/>
+								<ScoreDistribution value="0" recordCount="0"/>
+								<ScoreDistribution value="1" recordCount="1"/>
+							</Node>
+						</Node>
+						<Node score="0" recordCount="1">
+							<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.14999999478459358"/>
+							<ScoreDistribution value="0" recordCount="1"/>
+							<ScoreDistribution value="1" recordCount="0"/>
+						</Node>
+						<Node score="1" recordCount="1">
+							<True/>
+							<ScoreDistribution value="0" recordCount="0"/>
+							<ScoreDistribution value="1" recordCount="1"/>
+						</Node>
+					</Node>
+				</TreeModel>
+			</Segment>
+			<Segment id="29">
+				<True/>
+				<TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+					<MiningSchema>
+						<MiningField name="double(amt)"/>
+						<MiningField name="double(distance)"/>
+					</MiningSchema>
+					<Node>
+						<True/>
+						<Node>
+							<SimplePredicate field="double(amt)" operator="lessOrEqual" value="283.0"/>
+							<Node score="0" recordCount="1">
+								<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.11000000312924385"/>
+								<ScoreDistribution value="0" recordCount="1"/>
+								<ScoreDistribution value="1" recordCount="0"/>
+							</Node>
+							<Node score="1" recordCount="1">
+								<True/>
+								<ScoreDistribution value="0" recordCount="0"/>
+								<ScoreDistribution value="1" recordCount="1"/>
+							</Node>
+						</Node>
+						<Node score="0" recordCount="1">
+							<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.07499999925494194"/>
+							<ScoreDistribution value="0" recordCount="1"/>
+							<ScoreDistribution value="1" recordCount="0"/>
+						</Node>
+						<Node score="1" recordCount="1">
+							<True/>
+							<ScoreDistribution value="0" recordCount="0"/>
+							<ScoreDistribution value="1" recordCount="1"/>
+						</Node>
+					</Node>
+				</TreeModel>
+			</Segment>
+			<Segment id="30">
+				<True/>
+				<TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+					<MiningSchema>
+						<MiningField name="double(amt)"/>
+						<MiningField name="double(age)"/>
+						<MiningField name="double(distance)"/>
+					</MiningSchema>
+					<Node>
+						<True/>
+						<Node>
+							<SimplePredicate field="double(age)" operator="lessOrEqual" value="54.0"/>
+							<Node>
+								<SimplePredicate field="double(age)" operator="lessOrEqual" value="39.5"/>
+								<Node>
+									<SimplePredicate field="double(age)" operator="lessOrEqual" value="36.5"/>
+									<Node>
+										<SimplePredicate field="double(age)" operator="lessOrEqual" value="32.0"/>
+										<Node score="0" recordCount="1">
+											<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.19000000692903996"/>
+											<ScoreDistribution value="0" recordCount="1"/>
+											<ScoreDistribution value="1" recordCount="0"/>
+										</Node>
+										<Node score="1" recordCount="1">
+											<True/>
+											<ScoreDistribution value="0" recordCount="0"/>
+											<ScoreDistribution value="1" recordCount="1"/>
+										</Node>
+									</Node>
+									<Node score="0" recordCount="1">
+										<SimplePredicate field="double(age)" operator="lessOrEqual" value="34.5"/>
+										<ScoreDistribution value="0" recordCount="0.5357142857142857"/>
+										<ScoreDistribution value="1" recordCount="0.4642857142857143"/>
+									</Node>
+									<Node score="0" recordCount="1">
+										<True/>
+										<ScoreDistribution value="0" recordCount="0.6896551724137931"/>
+										<ScoreDistribution value="1" recordCount="0.3103448275862069"/>
+									</Node>
+								</Node>
+								<Node score="0" recordCount="1">
+									<SimplePredicate field="double(amt)" operator="lessOrEqual" value="164.5"/>
+									<ScoreDistribution value="0" recordCount="1"/>
+									<ScoreDistribution value="1" recordCount="0"/>
+								</Node>
+								<Node score="1" recordCount="1">
+									<True/>
+									<ScoreDistribution value="0" recordCount="0"/>
+									<ScoreDistribution value="1" recordCount="1"/>
+								</Node>
+							</Node>
+							<Node>
+								<SimplePredicate field="double(age)" operator="lessOrEqual" value="42.0"/>
+								<Node>
+									<SimplePredicate field="double(amt)" operator="lessOrEqual" value="842.5"/>
+									<Node score="0" recordCount="1">
+										<SimplePredicate field="double(amt)" operator="lessOrEqual" value="462.0"/>
+										<ScoreDistribution value="0" recordCount="1"/>
+										<ScoreDistribution value="1" recordCount="0"/>
+									</Node>
+									<Node score="0" recordCount="1">
+										<True/>
+										<ScoreDistribution value="0" recordCount="0.7619047619047619"/>
+										<ScoreDistribution value="1" recordCount="0.23809523809523808"/>
+									</Node>
+								</Node>
+								<Node score="1" recordCount="1">
+									<True/>
+									<ScoreDistribution value="0" recordCount="0"/>
+									<ScoreDistribution value="1" recordCount="1"/>
+								</Node>
+							</Node>
+							<Node score="0" recordCount="1">
+								<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.07499999925494194"/>
+								<ScoreDistribution value="0" recordCount="1"/>
+								<ScoreDistribution value="1" recordCount="0"/>
+							</Node>
+							<Node score="1" recordCount="1">
+								<True/>
+								<ScoreDistribution value="0" recordCount="0"/>
+								<ScoreDistribution value="1" recordCount="1"/>
+							</Node>
+						</Node>
+						<Node>
+							<SimplePredicate field="double(amt)" operator="lessOrEqual" value="182.0"/>
+							<Node>
+								<SimplePredicate field="double(age)" operator="lessOrEqual" value="75.5"/>
+								<Node score="0" recordCount="1">
+									<SimplePredicate field="double(age)" operator="lessOrEqual" value="72.0"/>
+									<ScoreDistribution value="0" recordCount="1"/>
+									<ScoreDistribution value="1" recordCount="0"/>
+								</Node>
+								<Node score="0" recordCount="1">
+									<SimplePredicate field="double(amt)" operator="lessOrEqual" value="160.5"/>
+									<ScoreDistribution value="0" recordCount="1"/>
+									<ScoreDistribution value="1" recordCount="0"/>
+								</Node>
+								<Node score="1" recordCount="1">
+									<True/>
+									<ScoreDistribution value="0" recordCount="0"/>
+									<ScoreDistribution value="1" recordCount="1"/>
+								</Node>
+							</Node>
+							<Node score="0" recordCount="1">
+								<True/>
+								<ScoreDistribution value="0" recordCount="1"/>
+								<ScoreDistribution value="1" recordCount="0"/>
+							</Node>
+						</Node>
+						<Node>
+							<SimplePredicate field="double(age)" operator="lessOrEqual" value="70.5"/>
+							<Node>
+								<SimplePredicate field="double(amt)" operator="lessOrEqual" value="694.5"/>
+								<Node score="0" recordCount="1">
+									<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.14999999478459358"/>
+									<ScoreDistribution value="0" recordCount="1"/>
+									<ScoreDistribution value="1" recordCount="0"/>
+								</Node>
+								<Node score="1" recordCount="1">
+									<True/>
+									<ScoreDistribution value="0" recordCount="0"/>
+									<ScoreDistribution value="1" recordCount="1"/>
+								</Node>
+							</Node>
+							<Node score="1" recordCount="1">
+								<SimplePredicate field="double(amt)" operator="lessOrEqual" value="995.0"/>
+								<ScoreDistribution value="0" recordCount="0.17391304347826086"/>
+								<ScoreDistribution value="1" recordCount="0.8260869565217391"/>
+							</Node>
+							<Node score="1" recordCount="1">
+								<True/>
+								<ScoreDistribution value="0" recordCount="0"/>
+								<ScoreDistribution value="1" recordCount="1"/>
+							</Node>
+						</Node>
+						<Node>
+							<SimplePredicate field="double(age)" operator="lessOrEqual" value="83.5"/>
+							<Node score="0" recordCount="1">
+								<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.0849999999627471"/>
+								<ScoreDistribution value="0" recordCount="1"/>
+								<ScoreDistribution value="1" recordCount="0"/>
+							</Node>
+							<Node score="1" recordCount="1">
+								<True/>
+								<ScoreDistribution value="0" recordCount="0"/>
+								<ScoreDistribution value="1" recordCount="1"/>
+							</Node>
+						</Node>
+						<Node score="0" recordCount="1">
+							<SimplePredicate field="double(amt)" operator="lessOrEqual" value="787.5"/>
+							<ScoreDistribution value="0" recordCount="0.52"/>
+							<ScoreDistribution value="1" recordCount="0.48"/>
+						</Node>
+						<Node score="1" recordCount="1">
+							<True/>
+							<ScoreDistribution value="0" recordCount="0"/>
+							<ScoreDistribution value="1" recordCount="1"/>
+						</Node>
+					</Node>
+				</TreeModel>
+			</Segment>
+			<Segment id="31">
+				<True/>
+				<TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+					<MiningSchema>
+						<MiningField name="double(amt)"/>
+						<MiningField name="double(age)"/>
+						<MiningField name="double(distance)"/>
+					</MiningSchema>
+					<Node>
+						<True/>
+						<Node>
+							<SimplePredicate field="double(age)" operator="lessOrEqual" value="54.0"/>
+							<Node>
+								<SimplePredicate field="double(amt)" operator="lessOrEqual" value="190.5"/>
+								<Node score="0" recordCount="1">
+									<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.10500000324100256"/>
+									<ScoreDistribution value="0" recordCount="1"/>
+									<ScoreDistribution value="1" recordCount="0"/>
+								</Node>
+								<Node score="1" recordCount="1">
+									<True/>
+									<ScoreDistribution value="0" recordCount="0"/>
+									<ScoreDistribution value="1" recordCount="1"/>
+								</Node>
+							</Node>
+							<Node score="1" recordCount="1">
+								<SimplePredicate field="double(age)" operator="lessOrEqual" value="31.5"/>
+								<ScoreDistribution value="0" recordCount="0"/>
+								<ScoreDistribution value="1" recordCount="1"/>
+							</Node>
+							<Node>
+								<SimplePredicate field="double(amt)" operator="lessOrEqual" value="292.0"/>
+								<Node score="1" recordCount="1">
+									<SimplePredicate field="double(amt)" operator="lessOrEqual" value="194.5"/>
+									<ScoreDistribution value="0" recordCount="0"/>
+									<ScoreDistribution value="1" recordCount="1"/>
+								</Node>
+								<Node score="0" recordCount="1">
+									<True/>
+									<ScoreDistribution value="0" recordCount="0.759493670886076"/>
+									<ScoreDistribution value="1" recordCount="0.24050632911392406"/>
+								</Node>
+							</Node>
+							<Node score="1" recordCount="1">
+								<SimplePredicate field="double(age)" operator="lessOrEqual" value="42.0"/>
+								<ScoreDistribution value="0" recordCount="0.49230769230769234"/>
+								<ScoreDistribution value="1" recordCount="0.5076923076923077"/>
+							</Node>
+							<Node score="1" recordCount="1">
+								<True/>
+								<ScoreDistribution value="0" recordCount="0.10227272727272728"/>
+								<ScoreDistribution value="1" recordCount="0.8977272727272727"/>
+							</Node>
+						</Node>
+						<Node>
+							<SimplePredicate field="double(age)" operator="lessOrEqual" value="69.5"/>
+							<Node score="0" recordCount="1">
+								<SimplePredicate field="double(amt)" operator="lessOrEqual" value="228.0"/>
+								<ScoreDistribution value="0" recordCount="1"/>
+								<ScoreDistribution value="1" recordCount="0"/>
+							</Node>
+							<Node score="0" recordCount="1">
+								<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.1449999948963523"/>
+								<ScoreDistribution value="0" recordCount="1"/>
+								<ScoreDistribution value="1" recordCount="0"/>
+							</Node>
+							<Node score="1" recordCount="1">
+								<True/>
+								<ScoreDistribution value="0" recordCount="0"/>
+								<ScoreDistribution value="1" recordCount="1"/>
+							</Node>
+						</Node>
+						<Node score="0" recordCount="1">
+							<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.08999999985098839"/>
+							<ScoreDistribution value="0" recordCount="1"/>
+							<ScoreDistribution value="1" recordCount="0"/>
+						</Node>
+						<Node score="1" recordCount="1">
+							<True/>
+							<ScoreDistribution value="0" recordCount="0"/>
+							<ScoreDistribution value="1" recordCount="1"/>
+						</Node>
+					</Node>
+				</TreeModel>
+			</Segment>
+			<Segment id="32">
+				<True/>
+				<TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+					<MiningSchema>
+						<MiningField name="double(distance)"/>
+					</MiningSchema>
+					<Node>
+						<True/>
+						<Node score="0" recordCount="1">
+							<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.06500000134110451"/>
+							<ScoreDistribution value="0" recordCount="1"/>
+							<ScoreDistribution value="1" recordCount="0"/>
+						</Node>
+						<Node score="1" recordCount="1">
+							<True/>
+							<ScoreDistribution value="0" recordCount="0"/>
+							<ScoreDistribution value="1" recordCount="1"/>
+						</Node>
+					</Node>
+				</TreeModel>
+			</Segment>
+			<Segment id="33">
+				<True/>
+				<TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+					<MiningSchema>
+						<MiningField name="double(amt)"/>
+						<MiningField name="double(distance)"/>
+					</MiningSchema>
+					<Node>
+						<True/>
+						<Node>
+							<SimplePredicate field="double(amt)" operator="lessOrEqual" value="204.0"/>
+							<Node score="0" recordCount="1">
+								<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.11000000312924385"/>
+								<ScoreDistribution value="0" recordCount="1"/>
+								<ScoreDistribution value="1" recordCount="0"/>
+							</Node>
+							<Node score="1" recordCount="1">
+								<True/>
+								<ScoreDistribution value="0" recordCount="0"/>
+								<ScoreDistribution value="1" recordCount="1"/>
+							</Node>
+						</Node>
+						<Node score="0" recordCount="1">
+							<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.06999999936670065"/>
+							<ScoreDistribution value="0" recordCount="1"/>
+							<ScoreDistribution value="1" recordCount="0"/>
+						</Node>
+						<Node score="1" recordCount="1">
+							<True/>
+							<ScoreDistribution value="0" recordCount="0"/>
+							<ScoreDistribution value="1" recordCount="1"/>
+						</Node>
+					</Node>
+				</TreeModel>
+			</Segment>
+			<Segment id="34">
+				<True/>
+				<TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+					<MiningSchema>
+						<MiningField name="double(amt)"/>
+						<MiningField name="double(age)"/>
+						<MiningField name="double(distance)"/>
+					</MiningSchema>
+					<Node>
+						<True/>
+						<Node>
+							<SimplePredicate field="double(amt)" operator="lessOrEqual" value="199.5"/>
+							<Node>
+								<SimplePredicate field="double(age)" operator="lessOrEqual" value="32.0"/>
+								<Node score="0" recordCount="1">
+									<SimplePredicate field="double(amt)" operator="lessOrEqual" value="93.0"/>
+									<ScoreDistribution value="0" recordCount="1"/>
+									<ScoreDistribution value="1" recordCount="0"/>
+								</Node>
+								<Node score="1" recordCount="1">
+									<True/>
+									<ScoreDistribution value="0" recordCount="0"/>
+									<ScoreDistribution value="1" recordCount="1"/>
+								</Node>
+							</Node>
+							<Node score="0" recordCount="1">
+								<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.39499999955296516"/>
+								<ScoreDistribution value="0" recordCount="1"/>
+								<ScoreDistribution value="1" recordCount="0"/>
+							</Node>
+							<Node score="1" recordCount="1">
+								<True/>
+								<ScoreDistribution value="0" recordCount="0"/>
+								<ScoreDistribution value="1" recordCount="1"/>
+							</Node>
+						</Node>
+						<Node>
+							<SimplePredicate field="double(age)" operator="lessOrEqual" value="69.5"/>
+							<Node>
+								<SimplePredicate field="double(age)" operator="lessOrEqual" value="65.0"/>
+								<Node>
+									<SimplePredicate field="double(age)" operator="lessOrEqual" value="42.0"/>
+									<Node score="0" recordCount="1">
+										<SimplePredicate field="double(amt)" operator="lessOrEqual" value="842.5"/>
+										<ScoreDistribution value="0" recordCount="0.5409836065573771"/>
+										<ScoreDistribution value="1" recordCount="0.45901639344262296"/>
+									</Node>
+									<Node score="1" recordCount="1">
+										<True/>
+										<ScoreDistribution value="0" recordCount="0.043478260869565216"/>
+										<ScoreDistribution value="1" recordCount="0.9565217391304348"/>
+									</Node>
+								</Node>
+								<Node score="0" recordCount="1">
+									<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.06999999936670065"/>
+									<ScoreDistribution value="0" recordCount="1"/>
+									<ScoreDistribution value="1" recordCount="0"/>
+								</Node>
+								<Node score="1" recordCount="1">
+									<True/>
+									<ScoreDistribution value="0" recordCount="0"/>
+									<ScoreDistribution value="1" recordCount="1"/>
+								</Node>
+							</Node>
+							<Node>
+								<SimplePredicate field="double(amt)" operator="lessOrEqual" value="1024.0"/>
+								<Node score="1" recordCount="1">
+									<SimplePredicate field="double(amt)" operator="lessOrEqual" value="284.0"/>
+									<ScoreDistribution value="0" recordCount="0.2222222222222222"/>
+									<ScoreDistribution value="1" recordCount="0.7777777777777778"/>
+								</Node>
+								<Node score="0" recordCount="1">
+									<True/>
+									<ScoreDistribution value="0" recordCount="0.7333333333333333"/>
+									<ScoreDistribution value="1" recordCount="0.26666666666666666"/>
+								</Node>
+							</Node>
+							<Node score="1" recordCount="1">
+								<True/>
+								<ScoreDistribution value="0" recordCount="0"/>
+								<ScoreDistribution value="1" recordCount="1"/>
+							</Node>
+						</Node>
+						<Node>
+							<SimplePredicate field="double(age)" operator="lessOrEqual" value="83.5"/>
+							<Node>
+								<SimplePredicate field="double(amt)" operator="lessOrEqual" value="333.0"/>
+								<Node score="0" recordCount="1">
+									<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.22499999310821295"/>
+									<ScoreDistribution value="0" recordCount="1"/>
+									<ScoreDistribution value="1" recordCount="0"/>
+								</Node>
+								<Node score="1" recordCount="1">
+									<True/>
+									<ScoreDistribution value="0" recordCount="0"/>
+									<ScoreDistribution value="1" recordCount="1"/>
+								</Node>
+							</Node>
+							<Node score="1" recordCount="1">
+								<SimplePredicate field="double(age)" operator="lessOrEqual" value="74.5"/>
+								<ScoreDistribution value="0" recordCount="0.038461538461538464"/>
+								<ScoreDistribution value="1" recordCount="0.9615384615384616"/>
+							</Node>
+							<Node score="1" recordCount="1">
+								<True/>
+								<ScoreDistribution value="0" recordCount="0"/>
+								<ScoreDistribution value="1" recordCount="1"/>
+							</Node>
+						</Node>
+						<Node score="0" recordCount="1">
+							<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.15500000026077032"/>
+							<ScoreDistribution value="0" recordCount="1"/>
+							<ScoreDistribution value="1" recordCount="0"/>
+						</Node>
+						<Node score="1" recordCount="1">
+							<True/>
+							<ScoreDistribution value="0" recordCount="0"/>
+							<ScoreDistribution value="1" recordCount="1"/>
+						</Node>
+					</Node>
+				</TreeModel>
+			</Segment>
+			<Segment id="35">
+				<True/>
+				<TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+					<MiningSchema>
+						<MiningField name="double(distance)"/>
+					</MiningSchema>
+					<Node>
+						<True/>
+						<Node score="0" recordCount="1">
+							<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.06500000134110451"/>
+							<ScoreDistribution value="0" recordCount="1"/>
+							<ScoreDistribution value="1" recordCount="0"/>
+						</Node>
+						<Node score="1" recordCount="1">
+							<True/>
+							<ScoreDistribution value="0" recordCount="0"/>
+							<ScoreDistribution value="1" recordCount="1"/>
+						</Node>
+					</Node>
+				</TreeModel>
+			</Segment>
+			<Segment id="36">
+				<True/>
+				<TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+					<MiningSchema>
+						<MiningField name="double(amt)"/>
+						<MiningField name="double(age)"/>
+						<MiningField name="double(distance)"/>
+					</MiningSchema>
+					<Node>
+						<True/>
+						<Node>
+							<SimplePredicate field="double(amt)" operator="lessOrEqual" value="204.0"/>
+							<Node score="0" recordCount="1">
+								<SimplePredicate field="double(amt)" operator="lessOrEqual" value="97.5"/>
+								<ScoreDistribution value="0" recordCount="1"/>
+								<ScoreDistribution value="1" recordCount="0"/>
+							</Node>
+							<Node score="1" recordCount="1">
+								<SimplePredicate field="double(age)" operator="lessOrEqual" value="32.5"/>
+								<ScoreDistribution value="0" recordCount="0"/>
+								<ScoreDistribution value="1" recordCount="1"/>
+							</Node>
+							<Node>
+								<SimplePredicate field="double(age)" operator="lessOrEqual" value="39.5"/>
+								<Node score="0" recordCount="1">
+									<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.6499999854713678"/>
+									<ScoreDistribution value="0" recordCount="1"/>
+									<ScoreDistribution value="1" recordCount="0"/>
+								</Node>
+								<Node score="1" recordCount="1">
+									<True/>
+									<ScoreDistribution value="0" recordCount="0"/>
+									<ScoreDistribution value="1" recordCount="1"/>
+								</Node>
+							</Node>
+							<Node score="0" recordCount="1">
+								<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.3399999877437949"/>
+								<ScoreDistribution value="0" recordCount="1"/>
+								<ScoreDistribution value="1" recordCount="0"/>
+							</Node>
+							<Node score="1" recordCount="1">
+								<True/>
+								<ScoreDistribution value="0" recordCount="0"/>
+								<ScoreDistribution value="1" recordCount="1"/>
+							</Node>
+						</Node>
+						<Node>
+							<SimplePredicate field="double(amt)" operator="lessOrEqual" value="835.5"/>
+							<Node>
+								<SimplePredicate field="double(amt)" operator="lessOrEqual" value="392.5"/>
+								<Node score="1" recordCount="1">
+									<SimplePredicate field="double(age)" operator="lessOrEqual" value="31.5"/>
+									<ScoreDistribution value="0" recordCount="0"/>
+									<ScoreDistribution value="1" recordCount="1"/>
+								</Node>
+								<Node score="0" recordCount="1">
+									<SimplePredicate field="double(age)" operator="lessOrEqual" value="70.5"/>
+									<ScoreDistribution value="0" recordCount="0.6225165562913907"/>
+									<ScoreDistribution value="1" recordCount="0.37748344370860926"/>
+								</Node>
+								<Node score="1" recordCount="1">
+									<True/>
+									<ScoreDistribution value="0" recordCount="0.26"/>
+									<ScoreDistribution value="1" recordCount="0.74"/>
+								</Node>
+							</Node>
+							<Node>
+								<SimplePredicate field="double(amt)" operator="lessOrEqual" value="505.0"/>
+								<Node score="0" recordCount="1">
+									<SimplePredicate field="double(age)" operator="lessOrEqual" value="45.0"/>
+									<ScoreDistribution value="0" recordCount="0.5333333333333333"/>
+									<ScoreDistribution value="1" recordCount="0.4666666666666667"/>
+								</Node>
+								<Node score="1" recordCount="1">
+									<True/>
+									<ScoreDistribution value="0" recordCount="0.12280701754385964"/>
+									<ScoreDistribution value="1" recordCount="0.8771929824561403"/>
+								</Node>
+							</Node>
+							<Node score="0" recordCount="1">
+								<SimplePredicate field="double(age)" operator="lessOrEqual" value="42.5"/>
+								<ScoreDistribution value="0" recordCount="0.6538461538461539"/>
+								<ScoreDistribution value="1" recordCount="0.34615384615384615"/>
+							</Node>
+							<Node score="1" recordCount="1">
+								<True/>
+								<ScoreDistribution value="0" recordCount="0.32954545454545453"/>
+								<ScoreDistribution value="1" recordCount="0.6704545454545454"/>
+							</Node>
+						</Node>
+						<Node score="0" recordCount="1">
+							<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.15500000026077032"/>
+							<ScoreDistribution value="0" recordCount="1"/>
+							<ScoreDistribution value="1" recordCount="0"/>
+						</Node>
+						<Node score="1" recordCount="1">
+							<True/>
+							<ScoreDistribution value="0" recordCount="0"/>
+							<ScoreDistribution value="1" recordCount="1"/>
+						</Node>
+					</Node>
+				</TreeModel>
+			</Segment>
+			<Segment id="37">
+				<True/>
+				<TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+					<MiningSchema>
+						<MiningField name="double(amt)"/>
+						<MiningField name="double(age)"/>
+						<MiningField name="double(distance)"/>
+					</MiningSchema>
+					<Node>
+						<True/>
+						<Node>
+							<SimplePredicate field="double(amt)" operator="lessOrEqual" value="178.0"/>
+							<Node score="0" recordCount="1">
+								<SimplePredicate field="double(amt)" operator="lessOrEqual" value="97.5"/>
+								<ScoreDistribution value="0" recordCount="1"/>
+								<ScoreDistribution value="1" recordCount="0"/>
+							</Node>
+							<Node score="0" recordCount="1">
+								<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.25999999418854713"/>
+								<ScoreDistribution value="0" recordCount="1"/>
+								<ScoreDistribution value="1" recordCount="0"/>
+							</Node>
+							<Node score="1" recordCount="1">
+								<True/>
+								<ScoreDistribution value="0" recordCount="0"/>
+								<ScoreDistribution value="1" recordCount="1"/>
+							</Node>
+						</Node>
+						<Node>
+							<SimplePredicate field="double(age)" operator="lessOrEqual" value="70.5"/>
+							<Node score="1" recordCount="1">
+								<SimplePredicate field="double(age)" operator="lessOrEqual" value="31.5"/>
+								<ScoreDistribution value="0" recordCount="0"/>
+								<ScoreDistribution value="1" recordCount="1"/>
+							</Node>
+							<Node score="0" recordCount="1">
+								<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.11499999836087227"/>
+								<ScoreDistribution value="0" recordCount="1"/>
+								<ScoreDistribution value="1" recordCount="0"/>
+							</Node>
+							<Node score="1" recordCount="1">
+								<True/>
+								<ScoreDistribution value="0" recordCount="0"/>
+								<ScoreDistribution value="1" recordCount="1"/>
+							</Node>
+						</Node>
+						<Node score="0" recordCount="1">
+							<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.0849999999627471"/>
+							<ScoreDistribution value="0" recordCount="1"/>
+							<ScoreDistribution value="1" recordCount="0"/>
+						</Node>
+						<Node score="1" recordCount="1">
+							<True/>
+							<ScoreDistribution value="0" recordCount="0"/>
+							<ScoreDistribution value="1" recordCount="1"/>
+						</Node>
+					</Node>
+				</TreeModel>
+			</Segment>
+			<Segment id="38">
+				<True/>
+				<TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+					<MiningSchema>
+						<MiningField name="double(amt)"/>
+						<MiningField name="double(age)"/>
+						<MiningField name="double(distance)"/>
+					</MiningSchema>
+					<Node>
+						<True/>
+						<Node>
+							<SimplePredicate field="double(age)" operator="lessOrEqual" value="52.5"/>
+							<Node>
+								<SimplePredicate field="double(amt)" operator="lessOrEqual" value="189.0"/>
+								<Node score="0" recordCount="1">
+									<SimplePredicate field="double(amt)" operator="lessOrEqual" value="97.5"/>
+									<ScoreDistribution value="0" recordCount="1"/>
+									<ScoreDistribution value="1" recordCount="0"/>
+								</Node>
+								<Node>
+									<SimplePredicate field="double(amt)" operator="lessOrEqual" value="127.0"/>
+									<Node score="1" recordCount="1">
+										<SimplePredicate field="double(amt)" operator="lessOrEqual" value="100.5"/>
+										<ScoreDistribution value="0" recordCount="0.25"/>
+										<ScoreDistribution value="1" recordCount="0.75"/>
+									</Node>
+									<Node score="0" recordCount="1">
+										<True/>
+										<ScoreDistribution value="0" recordCount="0.6938775510204082"/>
+										<ScoreDistribution value="1" recordCount="0.30612244897959184"/>
+									</Node>
+								</Node>
+								<Node score="0" recordCount="1">
+									<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.5050000045448542"/>
+									<ScoreDistribution value="0" recordCount="1"/>
+									<ScoreDistribution value="1" recordCount="0"/>
+								</Node>
+								<Node score="1" recordCount="1">
+									<True/>
+									<ScoreDistribution value="0" recordCount="0"/>
+									<ScoreDistribution value="1" recordCount="1"/>
+								</Node>
+							</Node>
+							<Node score="0" recordCount="1">
+								<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.10999999847263098"/>
+								<ScoreDistribution value="0" recordCount="1"/>
+								<ScoreDistribution value="1" recordCount="0"/>
+							</Node>
+							<Node score="1" recordCount="1">
+								<True/>
+								<ScoreDistribution value="0" recordCount="0"/>
+								<ScoreDistribution value="1" recordCount="1"/>
+							</Node>
+						</Node>
+						<Node>
+							<SimplePredicate field="double(amt)" operator="lessOrEqual" value="184.5"/>
+							<Node score="0" recordCount="1">
+								<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.529999990016222"/>
+								<ScoreDistribution value="0" recordCount="1"/>
+								<ScoreDistribution value="1" recordCount="0"/>
+							</Node>
+							<Node score="1" recordCount="1">
+								<True/>
+								<ScoreDistribution value="0" recordCount="0"/>
+								<ScoreDistribution value="1" recordCount="1"/>
+							</Node>
+						</Node>
+						<Node>
+							<SimplePredicate field="double(amt)" operator="lessOrEqual" value="879.5"/>
+							<Node>
+								<SimplePredicate field="double(amt)" operator="lessOrEqual" value="875.5"/>
+								<Node score="1" recordCount="1">
+									<SimplePredicate field="double(age)" operator="lessOrEqual" value="83.5"/>
+									<ScoreDistribution value="0" recordCount="0.26380368098159507"/>
+									<ScoreDistribution value="1" recordCount="0.7361963190184049"/>
+								</Node>
+								<Node score="0" recordCount="1">
+									<True/>
+									<ScoreDistribution value="0" recordCount="0.5483870967741935"/>
+									<ScoreDistribution value="1" recordCount="0.45161290322580644"/>
+								</Node>
+							</Node>
+							<Node score="0" recordCount="1">
+								<True/>
+								<ScoreDistribution value="0" recordCount="1"/>
+								<ScoreDistribution value="1" recordCount="0"/>
+							</Node>
+						</Node>
+						<Node score="1" recordCount="1">
+							<True/>
+							<ScoreDistribution value="0" recordCount="0"/>
+							<ScoreDistribution value="1" recordCount="1"/>
+						</Node>
+					</Node>
+				</TreeModel>
+			</Segment>
+			<Segment id="39">
+				<True/>
+				<TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+					<MiningSchema>
+						<MiningField name="double(amt)"/>
+						<MiningField name="double(age)"/>
+						<MiningField name="double(distance)"/>
+					</MiningSchema>
+					<Node>
+						<True/>
+						<Node>
+							<SimplePredicate field="double(age)" operator="lessOrEqual" value="52.5"/>
+							<Node>
+								<SimplePredicate field="double(amt)" operator="lessOrEqual" value="303.0"/>
+								<Node>
+									<SimplePredicate field="double(age)" operator="lessOrEqual" value="32.0"/>
+									<Node>
+										<SimplePredicate field="double(age)" operator="lessOrEqual" value="28.0"/>
+										<Node score="0" recordCount="1">
+											<SimplePredicate field="double(amt)" operator="lessOrEqual" value="66.0"/>
+											<ScoreDistribution value="0" recordCount="1"/>
+											<ScoreDistribution value="1" recordCount="0"/>
+										</Node>
+										<Node score="1" recordCount="1">
+											<True/>
+											<ScoreDistribution value="0" recordCount="0"/>
+											<ScoreDistribution value="1" recordCount="1"/>
+										</Node>
+									</Node>
+									<Node score="0" recordCount="1">
+										<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.19000000692903996"/>
+										<ScoreDistribution value="0" recordCount="1"/>
+										<ScoreDistribution value="1" recordCount="0"/>
+									</Node>
+									<Node score="1" recordCount="1">
+										<True/>
+										<ScoreDistribution value="0" recordCount="0"/>
+										<ScoreDistribution value="1" recordCount="1"/>
+									</Node>
+								</Node>
+								<Node>
+									<SimplePredicate field="double(age)" operator="lessOrEqual" value="39.5"/>
+									<Node score="0" recordCount="1">
+										<SimplePredicate field="double(age)" operator="lessOrEqual" value="36.5"/>
+										<ScoreDistribution value="0" recordCount="1"/>
+										<ScoreDistribution value="1" recordCount="0"/>
+									</Node>
+									<Node score="1" recordCount="1">
+										<True/>
+										<ScoreDistribution value="0" recordCount="0.09090909090909091"/>
+										<ScoreDistribution value="1" recordCount="0.9090909090909091"/>
+									</Node>
+								</Node>
+								<Node score="0" recordCount="1">
+									<SimplePredicate field="double(age)" operator="lessOrEqual" value="42.0"/>
+									<ScoreDistribution value="0" recordCount="1"/>
+									<ScoreDistribution value="1" recordCount="0"/>
+								</Node>
+								<Node score="0" recordCount="1">
+									<True/>
+									<ScoreDistribution value="0" recordCount="0.9030303030303031"/>
+									<ScoreDistribution value="1" recordCount="0.09696969696969697"/>
+								</Node>
+							</Node>
+							<Node>
+								<SimplePredicate field="double(age)" operator="lessOrEqual" value="42.0"/>
+								<Node>
+									<SimplePredicate field="double(amt)" operator="lessOrEqual" value="997.5"/>
+									<Node score="1" recordCount="1">
+										<SimplePredicate field="double(age)" operator="lessOrEqual" value="39.5"/>
+										<ScoreDistribution value="0" recordCount="0.38095238095238093"/>
+										<ScoreDistribution value="1" recordCount="0.6190476190476191"/>
+									</Node>
+									<Node score="0" recordCount="1">
+										<True/>
+										<ScoreDistribution value="0" recordCount="0.6896551724137931"/>
+										<ScoreDistribution value="1" recordCount="0.3103448275862069"/>
+									</Node>
+								</Node>
+								<Node score="1" recordCount="1">
+									<True/>
+									<ScoreDistribution value="0" recordCount="0"/>
+									<ScoreDistribution value="1" recordCount="1"/>
+								</Node>
+							</Node>
+							<Node>
+								<SimplePredicate field="double(amt)" operator="lessOrEqual" value="444.5"/>
+								<Node score="1" recordCount="1">
+									<SimplePredicate field="double(age)" operator="lessOrEqual" value="50.5"/>
+									<ScoreDistribution value="0" recordCount="0.21428571428571427"/>
+									<ScoreDistribution value="1" recordCount="0.7857142857142857"/>
+								</Node>
+								<Node score="1" recordCount="1">
+									<True/>
+									<ScoreDistribution value="0" recordCount="0"/>
+									<ScoreDistribution value="1" recordCount="1"/>
+								</Node>
+							</Node>
+							<Node score="1" recordCount="1">
+								<True/>
+								<ScoreDistribution value="0" recordCount="0"/>
+								<ScoreDistribution value="1" recordCount="1"/>
+							</Node>
+						</Node>
+						<Node>
+							<SimplePredicate field="double(amt)" operator="lessOrEqual" value="182.0"/>
+							<Node score="0" recordCount="1">
+								<SimplePredicate field="double(age)" operator="lessOrEqual" value="74.5"/>
+								<ScoreDistribution value="0" recordCount="1"/>
+								<ScoreDistribution value="1" recordCount="0"/>
+							</Node>
+							<Node score="0" recordCount="1">
+								<SimplePredicate field="double(amt)" operator="lessOrEqual" value="167.0"/>
+								<ScoreDistribution value="0" recordCount="1"/>
+								<ScoreDistribution value="1" recordCount="0"/>
+							</Node>
+							<Node score="0" recordCount="1">
+								<SimplePredicate field="double(amt)" operator="lessOrEqual" value="176.5"/>
+								<ScoreDistribution value="0" recordCount="0.6666666666666666"/>
+								<ScoreDistribution value="1" recordCount="0.3333333333333333"/>
+							</Node>
+							<Node score="0" recordCount="1">
+								<True/>
+								<ScoreDistribution value="0" recordCount="1"/>
+								<ScoreDistribution value="1" recordCount="0"/>
+							</Node>
+						</Node>
+						<Node>
+							<SimplePredicate field="double(amt)" operator="lessOrEqual" value="818.5"/>
+							<Node score="0" recordCount="1">
+								<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.08999999985098839"/>
+								<ScoreDistribution value="0" recordCount="1"/>
+								<ScoreDistribution value="1" recordCount="0"/>
+							</Node>
+							<Node score="1" recordCount="1">
+								<True/>
+								<ScoreDistribution value="0" recordCount="0"/>
+								<ScoreDistribution value="1" recordCount="1"/>
+							</Node>
+						</Node>
+						<Node>
+							<SimplePredicate field="double(age)" operator="lessOrEqual" value="68.5"/>
+							<Node score="1" recordCount="1">
+								<SimplePredicate field="double(age)" operator="lessOrEqual" value="67.0"/>
+								<ScoreDistribution value="0" recordCount="0"/>
+								<ScoreDistribution value="1" recordCount="1"/>
+							</Node>
+							<Node score="1" recordCount="1">
+								<True/>
+								<ScoreDistribution value="0" recordCount="0.1"/>
+								<ScoreDistribution value="1" recordCount="0.9"/>
+							</Node>
+						</Node>
+						<Node score="1" recordCount="1">
+							<True/>
+							<ScoreDistribution value="0" recordCount="0"/>
+							<ScoreDistribution value="1" recordCount="1"/>
+						</Node>
+					</Node>
+				</TreeModel>
+			</Segment>
+			<Segment id="40">
+				<True/>
+				<TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+					<MiningSchema>
+						<MiningField name="double(amt)"/>
+						<MiningField name="double(age)"/>
+						<MiningField name="double(distance)"/>
+					</MiningSchema>
+					<Node>
+						<True/>
+						<Node>
+							<SimplePredicate field="double(age)" operator="lessOrEqual" value="54.0"/>
+							<Node>
+								<SimplePredicate field="double(amt)" operator="lessOrEqual" value="290.5"/>
+								<Node score="0" recordCount="1">
+									<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.11000000312924385"/>
+									<ScoreDistribution value="0" recordCount="1"/>
+									<ScoreDistribution value="1" recordCount="0"/>
+								</Node>
+								<Node score="1" recordCount="1">
+									<True/>
+									<ScoreDistribution value="0" recordCount="0"/>
+									<ScoreDistribution value="1" recordCount="1"/>
+								</Node>
+							</Node>
+							<Node>
+								<SimplePredicate field="double(amt)" operator="lessOrEqual" value="882.5"/>
+								<Node>
+									<SimplePredicate field="double(amt)" operator="lessOrEqual" value="537.5"/>
+									<Node score="0" recordCount="1">
+										<SimplePredicate field="double(age)" operator="lessOrEqual" value="42.0"/>
+										<ScoreDistribution value="0" recordCount="0.5454545454545454"/>
+										<ScoreDistribution value="1" recordCount="0.45454545454545453"/>
+									</Node>
+									<Node score="1" recordCount="1">
+										<True/>
+										<ScoreDistribution value="0" recordCount="0.13432835820895522"/>
+										<ScoreDistribution value="1" recordCount="0.8656716417910447"/>
+									</Node>
+								</Node>
+								<Node score="0" recordCount="1">
+									<SimplePredicate field="double(age)" operator="lessOrEqual" value="42.0"/>
+									<ScoreDistribution value="0" recordCount="0.8"/>
+									<ScoreDistribution value="1" recordCount="0.2"/>
+								</Node>
+								<Node score="1" recordCount="1">
+									<True/>
+									<ScoreDistribution value="0" recordCount="0"/>
+									<ScoreDistribution value="1" recordCount="1"/>
+								</Node>
+							</Node>
+							<Node score="1" recordCount="1">
+								<True/>
+								<ScoreDistribution value="0" recordCount="0"/>
+								<ScoreDistribution value="1" recordCount="1"/>
+							</Node>
+						</Node>
+						<Node>
+							<SimplePredicate field="double(age)" operator="lessOrEqual" value="69.5"/>
+							<Node>
+								<SimplePredicate field="double(age)" operator="lessOrEqual" value="61.5"/>
+								<Node>
+									<SimplePredicate field="double(amt)" operator="lessOrEqual" value="361.0"/>
+									<Node score="0" recordCount="1">
+										<SimplePredicate field="double(amt)" operator="lessOrEqual" value="309.0"/>
+										<ScoreDistribution value="0" recordCount="0.6"/>
+										<ScoreDistribution value="1" recordCount="0.4"/>
+									</Node>
+									<Node score="0" recordCount="1">
+										<True/>
+										<ScoreDistribution value="0" recordCount="1"/>
+										<ScoreDistribution value="1" recordCount="0"/>
+									</Node>
+								</Node>
+								<Node score="1" recordCount="1">
+									<True/>
+									<ScoreDistribution value="0" recordCount="0"/>
+									<ScoreDistribution value="1" recordCount="1"/>
+								</Node>
+							</Node>
+							<Node>
+								<SimplePredicate field="double(age)" operator="lessOrEqual" value="68.5"/>
+								<Node score="0" recordCount="1">
+									<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.1449999948963523"/>
+									<ScoreDistribution value="0" recordCount="1"/>
+									<ScoreDistribution value="1" recordCount="0"/>
+								</Node>
+								<Node score="1" recordCount="1">
+									<True/>
+									<ScoreDistribution value="0" recordCount="0"/>
+									<ScoreDistribution value="1" recordCount="1"/>
+								</Node>
+							</Node>
+							<Node score="0" recordCount="1">
+								<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.32500000204890966"/>
+								<ScoreDistribution value="0" recordCount="1"/>
+								<ScoreDistribution value="1" recordCount="0"/>
+							</Node>
+							<Node score="1" recordCount="1">
+								<True/>
+								<ScoreDistribution value="0" recordCount="0"/>
+								<ScoreDistribution value="1" recordCount="1"/>
+							</Node>
+						</Node>
+						<Node score="0" recordCount="1">
+							<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.08999999985098839"/>
+							<ScoreDistribution value="0" recordCount="1"/>
+							<ScoreDistribution value="1" recordCount="0"/>
+						</Node>
+						<Node score="1" recordCount="1">
+							<True/>
+							<ScoreDistribution value="0" recordCount="0"/>
+							<ScoreDistribution value="1" recordCount="1"/>
+						</Node>
+					</Node>
+				</TreeModel>
+			</Segment>
+			<Segment id="41">
+				<True/>
+				<TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+					<MiningSchema>
+						<MiningField name="double(amt)"/>
+						<MiningField name="double(age)"/>
+						<MiningField name="double(distance)"/>
+					</MiningSchema>
+					<Node>
+						<True/>
+						<Node>
+							<SimplePredicate field="double(amt)" operator="lessOrEqual" value="247.5"/>
+							<Node score="0" recordCount="1">
+								<SimplePredicate field="double(amt)" operator="lessOrEqual" value="102.5"/>
+								<ScoreDistribution value="0" recordCount="1"/>
+								<ScoreDistribution value="1" recordCount="0"/>
+							</Node>
+							<Node score="1" recordCount="1">
+								<SimplePredicate field="double(age)" operator="lessOrEqual" value="32.0"/>
+								<ScoreDistribution value="0" recordCount="0"/>
+								<ScoreDistribution value="1" recordCount="1"/>
+							</Node>
+							<Node>
+								<SimplePredicate field="double(age)" operator="lessOrEqual" value="39.5"/>
+								<Node score="0" recordCount="1">
+									<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.3849999997764826"/>
+									<ScoreDistribution value="0" recordCount="1"/>
+									<ScoreDistribution value="1" recordCount="0"/>
+								</Node>
+								<Node score="1" recordCount="1">
+									<True/>
+									<ScoreDistribution value="0" recordCount="0"/>
+									<ScoreDistribution value="1" recordCount="1"/>
+								</Node>
+							</Node>
+							<Node score="0" recordCount="1">
+								<SimplePredicate field="double(age)" operator="lessOrEqual" value="70.5"/>
+								<ScoreDistribution value="0" recordCount="0.8846153846153846"/>
+								<ScoreDistribution value="1" recordCount="0.11538461538461539"/>
+							</Node>
+							<Node score="0" recordCount="1">
+								<True/>
+								<ScoreDistribution value="0" recordCount="0.6666666666666666"/>
+								<ScoreDistribution value="1" recordCount="0.3333333333333333"/>
+							</Node>
+						</Node>
+						<Node>
+							<SimplePredicate field="double(amt)" operator="lessOrEqual" value="542.0"/>
+							<Node>
+								<SimplePredicate field="double(amt)" operator="lessOrEqual" value="537.5"/>
+								<Node>
+									<SimplePredicate field="double(amt)" operator="lessOrEqual" value="387.0"/>
+									<Node score="0" recordCount="1">
+										<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.20499999728053808"/>
+										<ScoreDistribution value="0" recordCount="1"/>
+										<ScoreDistribution value="1" recordCount="0"/>
+									</Node>
+									<Node score="1" recordCount="1">
+										<True/>
+										<ScoreDistribution value="0" recordCount="0"/>
+										<ScoreDistribution value="1" recordCount="1"/>
+									</Node>
+								</Node>
+								<Node score="1" recordCount="1">
+									<SimplePredicate field="double(amt)" operator="lessOrEqual" value="397.0"/>
+									<ScoreDistribution value="0" recordCount="0.05555555555555555"/>
+									<ScoreDistribution value="1" recordCount="0.9444444444444444"/>
+								</Node>
+								<Node score="1" recordCount="1">
+									<True/>
+									<ScoreDistribution value="0" recordCount="0.3225806451612903"/>
+									<ScoreDistribution value="1" recordCount="0.6774193548387096"/>
+								</Node>
+							</Node>
+							<Node score="0" recordCount="1">
+								<True/>
+								<ScoreDistribution value="0" recordCount="1"/>
+								<ScoreDistribution value="1" recordCount="0"/>
+							</Node>
+						</Node>
+						<Node>
+							<SimplePredicate field="double(age)" operator="lessOrEqual" value="42.0"/>
+							<Node>
+								<SimplePredicate field="double(amt)" operator="lessOrEqual" value="997.5"/>
+								<Node score="0" recordCount="1">
+									<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.4649999877437949"/>
+									<ScoreDistribution value="0" recordCount="1"/>
+									<ScoreDistribution value="1" recordCount="0"/>
+								</Node>
+								<Node score="1" recordCount="1">
+									<True/>
+									<ScoreDistribution value="0" recordCount="0"/>
+									<ScoreDistribution value="1" recordCount="1"/>
+								</Node>
+							</Node>
+							<Node score="1" recordCount="1">
+								<True/>
+								<ScoreDistribution value="0" recordCount="0"/>
+								<ScoreDistribution value="1" recordCount="1"/>
+							</Node>
+						</Node>
+						<Node score="1" recordCount="1">
+							<SimplePredicate field="double(age)" operator="lessOrEqual" value="61.5"/>
+							<ScoreDistribution value="0" recordCount="0"/>
+							<ScoreDistribution value="1" recordCount="1"/>
+						</Node>
+						<Node score="1" recordCount="1">
+							<SimplePredicate field="double(age)" operator="lessOrEqual" value="70.5"/>
+							<ScoreDistribution value="0" recordCount="0.1323529411764706"/>
+							<ScoreDistribution value="1" recordCount="0.8676470588235294"/>
+						</Node>
+						<Node score="1" recordCount="1">
+							<True/>
+							<ScoreDistribution value="0" recordCount="0.02857142857142857"/>
+							<ScoreDistribution value="1" recordCount="0.9714285714285714"/>
+						</Node>
+					</Node>
+				</TreeModel>
+			</Segment>
+			<Segment id="42">
+				<True/>
+				<TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+					<MiningSchema>
+						<MiningField name="double(distance)"/>
+					</MiningSchema>
+					<Node>
+						<True/>
+						<Node score="0" recordCount="1">
+							<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.06500000134110451"/>
+							<ScoreDistribution value="0" recordCount="1"/>
+							<ScoreDistribution value="1" recordCount="0"/>
+						</Node>
+						<Node score="1" recordCount="1">
+							<True/>
+							<ScoreDistribution value="0" recordCount="0"/>
+							<ScoreDistribution value="1" recordCount="1"/>
+						</Node>
+					</Node>
+				</TreeModel>
+			</Segment>
+			<Segment id="43">
+				<True/>
+				<TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+					<MiningSchema>
+						<MiningField name="double(amt)"/>
+						<MiningField name="double(age)"/>
+						<MiningField name="double(distance)"/>
+					</MiningSchema>
+					<Node>
+						<True/>
+						<Node>
+							<SimplePredicate field="double(amt)" operator="lessOrEqual" value="187.5"/>
+							<Node score="0" recordCount="1">
+								<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.11000000312924385"/>
+								<ScoreDistribution value="0" recordCount="1"/>
+								<ScoreDistribution value="1" recordCount="0"/>
+							</Node>
+							<Node score="1" recordCount="1">
+								<True/>
+								<ScoreDistribution value="0" recordCount="0"/>
+								<ScoreDistribution value="1" recordCount="1"/>
+							</Node>
+						</Node>
+						<Node>
+							<SimplePredicate field="double(age)" operator="lessOrEqual" value="70.5"/>
+							<Node score="0" recordCount="1">
+								<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.07499999925494194"/>
+								<ScoreDistribution value="0" recordCount="1"/>
+								<ScoreDistribution value="1" recordCount="0"/>
+							</Node>
+							<Node score="1" recordCount="1">
+								<True/>
+								<ScoreDistribution value="0" recordCount="0"/>
+								<ScoreDistribution value="1" recordCount="1"/>
+							</Node>
+						</Node>
+						<Node>
+							<SimplePredicate field="double(age)" operator="lessOrEqual" value="83.5"/>
+							<Node>
+								<SimplePredicate field="double(amt)" operator="lessOrEqual" value="207.5"/>
+								<Node score="0" recordCount="1">
+									<SimplePredicate field="double(age)" operator="lessOrEqual" value="77.5"/>
+									<ScoreDistribution value="0" recordCount="1"/>
+									<ScoreDistribution value="1" recordCount="0"/>
+								</Node>
+								<Node score="1" recordCount="1">
+									<True/>
+									<ScoreDistribution value="0" recordCount="0"/>
+									<ScoreDistribution value="1" recordCount="1"/>
+								</Node>
+							</Node>
+							<Node score="1" recordCount="1">
+								<SimplePredicate field="double(age)" operator="lessOrEqual" value="74.5"/>
+								<ScoreDistribution value="0" recordCount="0.07142857142857142"/>
+								<ScoreDistribution value="1" recordCount="0.9285714285714286"/>
+							</Node>
+							<Node score="1" recordCount="1">
+								<True/>
+								<ScoreDistribution value="0" recordCount="0"/>
+								<ScoreDistribution value="1" recordCount="1"/>
+							</Node>
+						</Node>
+						<Node>
+							<SimplePredicate field="double(age)" operator="lessOrEqual" value="84.5"/>
+							<Node score="0" recordCount="1">
+								<SimplePredicate field="double(amt)" operator="lessOrEqual" value="1138.0"/>
+								<ScoreDistribution value="0" recordCount="0.9230769230769231"/>
+								<ScoreDistribution value="1" recordCount="0.07692307692307693"/>
+							</Node>
+							<Node score="1" recordCount="1">
+								<True/>
+								<ScoreDistribution value="0" recordCount="0"/>
+								<ScoreDistribution value="1" recordCount="1"/>
+							</Node>
+						</Node>
+						<Node score="1" recordCount="1">
+							<SimplePredicate field="double(amt)" operator="lessOrEqual" value="320.0"/>
+							<ScoreDistribution value="0" recordCount="0.2857142857142857"/>
+							<ScoreDistribution value="1" recordCount="0.7142857142857143"/>
+						</Node>
+						<Node score="1" recordCount="1">
+							<True/>
+							<ScoreDistribution value="0" recordCount="0"/>
+							<ScoreDistribution value="1" recordCount="1"/>
+						</Node>
+					</Node>
+				</TreeModel>
+			</Segment>
+			<Segment id="44">
+				<True/>
+				<TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+					<MiningSchema>
+						<MiningField name="double(distance)"/>
+					</MiningSchema>
+					<Node>
+						<True/>
+						<Node score="0" recordCount="1">
+							<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.06500000134110451"/>
+							<ScoreDistribution value="0" recordCount="1"/>
+							<ScoreDistribution value="1" recordCount="0"/>
+						</Node>
+						<Node score="1" recordCount="1">
+							<True/>
+							<ScoreDistribution value="0" recordCount="0"/>
+							<ScoreDistribution value="1" recordCount="1"/>
+						</Node>
+					</Node>
+				</TreeModel>
+			</Segment>
+			<Segment id="45">
+				<True/>
+				<TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+					<MiningSchema>
+						<MiningField name="double(distance)"/>
+					</MiningSchema>
+					<Node>
+						<True/>
+						<Node score="0" recordCount="1">
+							<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.07499999925494194"/>
+							<ScoreDistribution value="0" recordCount="1"/>
+							<ScoreDistribution value="1" recordCount="0"/>
+						</Node>
+						<Node score="1" recordCount="1">
+							<True/>
+							<ScoreDistribution value="0" recordCount="0"/>
+							<ScoreDistribution value="1" recordCount="1"/>
+						</Node>
+					</Node>
+				</TreeModel>
+			</Segment>
+			<Segment id="46">
+				<True/>
+				<TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+					<MiningSchema>
+						<MiningField name="double(amt)"/>
+						<MiningField name="double(age)"/>
+						<MiningField name="double(distance)"/>
+					</MiningSchema>
+					<Node>
+						<True/>
+						<Node>
+							<SimplePredicate field="double(age)" operator="lessOrEqual" value="69.5"/>
+							<Node>
+								<SimplePredicate field="double(age)" operator="lessOrEqual" value="32.0"/>
+								<Node score="0" recordCount="1">
+									<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.10000000335276127"/>
+									<ScoreDistribution value="0" recordCount="1"/>
+									<ScoreDistribution value="1" recordCount="0"/>
+								</Node>
+								<Node score="1" recordCount="1">
+									<True/>
+									<ScoreDistribution value="0" recordCount="0"/>
+									<ScoreDistribution value="1" recordCount="1"/>
+								</Node>
+							</Node>
+							<Node>
+								<SimplePredicate field="double(amt)" operator="lessOrEqual" value="294.5"/>
+								<Node>
+									<SimplePredicate field="double(age)" operator="lessOrEqual" value="65.0"/>
+									<Node score="0" recordCount="1">
+										<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.28500001039355993"/>
+										<ScoreDistribution value="0" recordCount="1"/>
+										<ScoreDistribution value="1" recordCount="0"/>
+									</Node>
+									<Node score="1" recordCount="1">
+										<True/>
+										<ScoreDistribution value="0" recordCount="0"/>
+										<ScoreDistribution value="1" recordCount="1"/>
+									</Node>
+								</Node>
+								<Node score="0" recordCount="1">
+									<SimplePredicate field="double(age)" operator="lessOrEqual" value="67.0"/>
+									<ScoreDistribution value="0" recordCount="0.6666666666666666"/>
+									<ScoreDistribution value="1" recordCount="0.3333333333333333"/>
+								</Node>
+								<Node score="0" recordCount="1">
+									<True/>
+									<ScoreDistribution value="0" recordCount="1"/>
+									<ScoreDistribution value="1" recordCount="0"/>
+								</Node>
+							</Node>
+							<Node score="0" recordCount="1">
+								<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.06999999936670065"/>
+								<ScoreDistribution value="0" recordCount="1"/>
+								<ScoreDistribution value="1" recordCount="0"/>
+							</Node>
+							<Node score="1" recordCount="1">
+								<True/>
+								<ScoreDistribution value="0" recordCount="0"/>
+								<ScoreDistribution value="1" recordCount="1"/>
+							</Node>
+						</Node>
+						<Node score="0" recordCount="1">
+							<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.08999999985098839"/>
+							<ScoreDistribution value="0" recordCount="1"/>
+							<ScoreDistribution value="1" recordCount="0"/>
+						</Node>
+						<Node score="1" recordCount="1">
+							<True/>
+							<ScoreDistribution value="0" recordCount="0"/>
+							<ScoreDistribution value="1" recordCount="1"/>
+						</Node>
+					</Node>
+				</TreeModel>
+			</Segment>
+			<Segment id="47">
+				<True/>
+				<TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+					<MiningSchema>
+						<MiningField name="double(amt)"/>
+						<MiningField name="double(age)"/>
+						<MiningField name="double(distance)"/>
+					</MiningSchema>
+					<Node>
+						<True/>
+						<Node>
+							<SimplePredicate field="double(age)" operator="lessOrEqual" value="54.0"/>
+							<Node>
+								<SimplePredicate field="double(age)" operator="lessOrEqual" value="32.0"/>
+								<Node>
+									<SimplePredicate field="double(age)" operator="lessOrEqual" value="29.5"/>
+									<Node score="0" recordCount="1">
+										<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.10000000335276127"/>
+										<ScoreDistribution value="0" recordCount="1"/>
+										<ScoreDistribution value="1" recordCount="0"/>
+									</Node>
+									<Node score="1" recordCount="1">
+										<True/>
+										<ScoreDistribution value="0" recordCount="0"/>
+										<ScoreDistribution value="1" recordCount="1"/>
+									</Node>
+								</Node>
+								<Node score="0" recordCount="1">
+									<SimplePredicate field="double(amt)" operator="lessOrEqual" value="72.0"/>
+									<ScoreDistribution value="0" recordCount="1"/>
+									<ScoreDistribution value="1" recordCount="0"/>
+								</Node>
+								<Node score="1" recordCount="1">
+									<True/>
+									<ScoreDistribution value="0" recordCount="0"/>
+									<ScoreDistribution value="1" recordCount="1"/>
+								</Node>
+							</Node>
+							<Node>
+								<SimplePredicate field="double(amt)" operator="lessOrEqual" value="304.0"/>
+								<Node>
+									<SimplePredicate field="double(age)" operator="lessOrEqual" value="50.5"/>
+									<Node score="0" recordCount="1">
+										<SimplePredicate field="double(age)" operator="lessOrEqual" value="43.5"/>
+										<ScoreDistribution value="0" recordCount="0.8533333333333334"/>
+										<ScoreDistribution value="1" recordCount="0.14666666666666667"/>
+									</Node>
+									<Node score="0" recordCount="1">
+										<True/>
+										<ScoreDistribution value="0" recordCount="0.9351851851851852"/>
+										<ScoreDistribution value="1" recordCount="0.06481481481481481"/>
+									</Node>
+								</Node>
+								<Node score="1" recordCount="1">
+									<SimplePredicate field="double(age)" operator="lessOrEqual" value="51.5"/>
+									<ScoreDistribution value="0" recordCount="0.3333333333333333"/>
+									<ScoreDistribution value="1" recordCount="0.6666666666666666"/>
+								</Node>
+								<Node score="0" recordCount="1">
+									<True/>
+									<ScoreDistribution value="0" recordCount="0.875"/>
+									<ScoreDistribution value="1" recordCount="0.125"/>
+								</Node>
+							</Node>
+							<Node>
+								<SimplePredicate field="double(age)" operator="lessOrEqual" value="34.5"/>
+								<Node score="0" recordCount="1">
+									<SimplePredicate field="double(amt)" operator="lessOrEqual" value="999.0"/>
+									<ScoreDistribution value="0" recordCount="1"/>
+									<ScoreDistribution value="1" recordCount="0"/>
+								</Node>
+								<Node score="1" recordCount="1">
+									<True/>
+									<ScoreDistribution value="0" recordCount="0"/>
+									<ScoreDistribution value="1" recordCount="1"/>
+								</Node>
+							</Node>
+							<Node score="1" recordCount="1">
+								<SimplePredicate field="double(age)" operator="lessOrEqual" value="42.0"/>
+								<ScoreDistribution value="0" recordCount="0.35714285714285715"/>
+								<ScoreDistribution value="1" recordCount="0.6428571428571429"/>
+							</Node>
+							<Node score="1" recordCount="1">
+								<True/>
+								<ScoreDistribution value="0" recordCount="0.11904761904761904"/>
+								<ScoreDistribution value="1" recordCount="0.8809523809523809"/>
+							</Node>
+						</Node>
+						<Node>
+							<SimplePredicate field="double(age)" operator="lessOrEqual" value="61.5"/>
+							<Node>
+								<SimplePredicate field="double(age)" operator="lessOrEqual" value="57.0"/>
+								<Node score="0" recordCount="1">
+									<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.1999999973922968"/>
+									<ScoreDistribution value="0" recordCount="1"/>
+									<ScoreDistribution value="1" recordCount="0"/>
+								</Node>
+								<Node score="1" recordCount="1">
+									<True/>
+									<ScoreDistribution value="0" recordCount="0"/>
+									<ScoreDistribution value="1" recordCount="1"/>
+								</Node>
+							</Node>
+							<Node score="1" recordCount="1">
+								<True/>
+								<ScoreDistribution value="0" recordCount="0"/>
+								<ScoreDistribution value="1" recordCount="1"/>
+							</Node>
+						</Node>
+						<Node>
+							<SimplePredicate field="double(amt)" operator="lessOrEqual" value="177.5"/>
+							<Node score="0" recordCount="1">
+								<SimplePredicate field="double(amt)" operator="lessOrEqual" value="169.0"/>
+								<ScoreDistribution value="0" recordCount="1"/>
+								<ScoreDistribution value="1" recordCount="0"/>
+							</Node>
+							<Node score="1" recordCount="1">
+								<SimplePredicate field="double(age)" operator="lessOrEqual" value="76.0"/>
+								<ScoreDistribution value="0" recordCount="0"/>
+								<ScoreDistribution value="1" recordCount="1"/>
+							</Node>
+							<Node score="0" recordCount="1">
+								<True/>
+								<ScoreDistribution value="0" recordCount="1"/>
+								<ScoreDistribution value="1" recordCount="0"/>
+							</Node>
+						</Node>
+						<Node>
+							<SimplePredicate field="double(age)" operator="lessOrEqual" value="70.5"/>
+							<Node score="1" recordCount="1">
+								<SimplePredicate field="double(age)" operator="lessOrEqual" value="65.0"/>
+								<ScoreDistribution value="0" recordCount="0.21428571428571427"/>
+								<ScoreDistribution value="1" recordCount="0.7857142857142857"/>
+							</Node>
+							<Node score="1" recordCount="1">
+								<True/>
+								<ScoreDistribution value="0" recordCount="0.36153846153846153"/>
+								<ScoreDistribution value="1" recordCount="0.6384615384615384"/>
+							</Node>
+						</Node>
+						<Node score="1" recordCount="1">
+							<SimplePredicate field="double(amt)" operator="lessOrEqual" value="787.5"/>
+							<ScoreDistribution value="0" recordCount="0.2558139534883721"/>
+							<ScoreDistribution value="1" recordCount="0.7441860465116279"/>
+						</Node>
+						<Node score="1" recordCount="1">
+							<True/>
+							<ScoreDistribution value="0" recordCount="0"/>
+							<ScoreDistribution value="1" recordCount="1"/>
+						</Node>
+					</Node>
+				</TreeModel>
+			</Segment>
+			<Segment id="48">
+				<True/>
+				<TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+					<MiningSchema>
+						<MiningField name="double(amt)"/>
+						<MiningField name="double(age)"/>
+						<MiningField name="double(distance)"/>
+					</MiningSchema>
+					<Node>
+						<True/>
+						<Node>
+							<SimplePredicate field="double(amt)" operator="lessOrEqual" value="292.5"/>
+							<Node score="0" recordCount="1">
+								<SimplePredicate field="double(amt)" operator="lessOrEqual" value="97.5"/>
+								<ScoreDistribution value="0" recordCount="1"/>
+								<ScoreDistribution value="1" recordCount="0"/>
+							</Node>
+							<Node>
+								<SimplePredicate field="double(amt)" operator="lessOrEqual" value="199.5"/>
+								<Node score="0" recordCount="1">
+									<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.11000000312924385"/>
+									<ScoreDistribution value="0" recordCount="1"/>
+									<ScoreDistribution value="1" recordCount="0"/>
+								</Node>
+								<Node score="1" recordCount="1">
+									<True/>
+									<ScoreDistribution value="0" recordCount="0"/>
+									<ScoreDistribution value="1" recordCount="1"/>
+								</Node>
+							</Node>
+							<Node score="0" recordCount="1">
+								<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.25499999430030584"/>
+								<ScoreDistribution value="0" recordCount="1"/>
+								<ScoreDistribution value="1" recordCount="0"/>
+							</Node>
+							<Node score="1" recordCount="1">
+								<True/>
+								<ScoreDistribution value="0" recordCount="0"/>
+								<ScoreDistribution value="1" recordCount="1"/>
+							</Node>
+						</Node>
+						<Node>
+							<SimplePredicate field="double(amt)" operator="lessOrEqual" value="798.5"/>
+							<Node>
+								<SimplePredicate field="double(age)" operator="lessOrEqual" value="42.0"/>
+								<Node score="0" recordCount="1">
+									<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.10999999847263098"/>
+									<ScoreDistribution value="0" recordCount="1"/>
+									<ScoreDistribution value="1" recordCount="0"/>
+								</Node>
+								<Node score="1" recordCount="1">
+									<True/>
+									<ScoreDistribution value="0" recordCount="0"/>
+									<ScoreDistribution value="1" recordCount="1"/>
+								</Node>
+							</Node>
+							<Node>
+								<SimplePredicate field="double(age)" operator="lessOrEqual" value="61.5"/>
+								<Node score="1" recordCount="1">
+									<SimplePredicate field="double(amt)" operator="lessOrEqual" value="480.0"/>
+									<ScoreDistribution value="0" recordCount="0.20689655172413793"/>
+									<ScoreDistribution value="1" recordCount="0.7931034482758621"/>
+								</Node>
+								<Node score="1" recordCount="1">
+									<True/>
+									<ScoreDistribution value="0" recordCount="0"/>
+									<ScoreDistribution value="1" recordCount="1"/>
+								</Node>
+							</Node>
+							<Node score="0" recordCount="1">
+								<SimplePredicate field="double(age)" operator="lessOrEqual" value="70.5"/>
+								<ScoreDistribution value="0" recordCount="0.5660377358490566"/>
+								<ScoreDistribution value="1" recordCount="0.4339622641509434"/>
+							</Node>
+							<Node score="1" recordCount="1">
+								<True/>
+								<ScoreDistribution value="0" recordCount="0.19402985074626866"/>
+								<ScoreDistribution value="1" recordCount="0.8059701492537313"/>
+							</Node>
+						</Node>
+						<Node>
+							<SimplePredicate field="double(age)" operator="lessOrEqual" value="67.0"/>
+							<Node>
+								<SimplePredicate field="double(amt)" operator="lessOrEqual" value="928.5"/>
+								<Node score="1" recordCount="1">
+									<SimplePredicate field="double(age)" operator="lessOrEqual" value="65.0"/>
+									<ScoreDistribution value="0" recordCount="0.08333333333333333"/>
+									<ScoreDistribution value="1" recordCount="0.9166666666666666"/>
+								</Node>
+								<Node score="0" recordCount="1">
+									<True/>
+									<ScoreDistribution value="0" recordCount="1"/>
+									<ScoreDistribution value="1" recordCount="0"/>
+								</Node>
+							</Node>
+							<Node score="1" recordCount="1">
+								<True/>
+								<ScoreDistribution value="0" recordCount="0"/>
+								<ScoreDistribution value="1" recordCount="1"/>
+							</Node>
+						</Node>
+						<Node score="1" recordCount="1">
+							<True/>
+							<ScoreDistribution value="0" recordCount="0"/>
+							<ScoreDistribution value="1" recordCount="1"/>
+						</Node>
+					</Node>
+				</TreeModel>
+			</Segment>
+			<Segment id="49">
+				<True/>
+				<TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+					<MiningSchema>
+						<MiningField name="double(distance)"/>
+					</MiningSchema>
+					<Node>
+						<True/>
+						<Node score="0" recordCount="1">
+							<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.06500000134110451"/>
+							<ScoreDistribution value="0" recordCount="1"/>
+							<ScoreDistribution value="1" recordCount="0"/>
+						</Node>
+						<Node score="1" recordCount="1">
+							<True/>
+							<ScoreDistribution value="0" recordCount="0"/>
+							<ScoreDistribution value="1" recordCount="1"/>
+						</Node>
+					</Node>
+				</TreeModel>
+			</Segment>
+			<Segment id="50">
+				<True/>
+				<TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+					<MiningSchema>
+						<MiningField name="double(distance)"/>
+					</MiningSchema>
+					<Node>
+						<True/>
+						<Node score="0" recordCount="1">
+							<SimplePredicate field="double(distance)" operator="lessOrEqual" value="0.08999999985098839"/>
+							<ScoreDistribution value="0" recordCount="1"/>
+							<ScoreDistribution value="1" recordCount="0"/>
+						</Node>
+						<Node score="1" recordCount="1">
+							<True/>
+							<ScoreDistribution value="0" recordCount="0"/>
+							<ScoreDistribution value="1" recordCount="1"/>
+						</Node>
+					</Node>
+				</TreeModel>
+			</Segment>
+		</Segmentation>
+	</MiningModel>
+</PMML>
