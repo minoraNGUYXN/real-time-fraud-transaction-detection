@@ -156,7 +156,7 @@ public class FlinkProcessor {
     public static class AlertFormatter implements MapFunction<TransactionWithProbability, String> {
         @Override
         public String map(TransactionWithProbability txWithProb) {
-            return String.format(">>>FRAUD ALERT: %s | Probability: %.3f",
+            return String.format(">>>Fraud Detected: %s | Probability: %.3f",
                     txWithProb.getTransaction().toCsv(), txWithProb.getProbability());
         }
     }

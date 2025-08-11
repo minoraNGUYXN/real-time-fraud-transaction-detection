@@ -12,8 +12,6 @@ public class ProducerApp {
     private static final String CUSTOMER_CSV = "data/customers.csv";
 
     public static void main(String[] args) {
-        System.out.println("Starting Transaction Producer from CSV...");
-
         try (Producer<String, String> producer = createKafkaProducer()) {
             CsvDataManager csvManager = new CsvDataManager(TRANSACTION_CSV, CUSTOMER_CSV);
 
